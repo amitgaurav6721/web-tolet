@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Tolet - Premium Subscription-Based Web Design Agency</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,26 +13,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #00f5d4 0%, #3b82f6 50%, #a855f7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .glass-card {
-            background: rgba(20, 20, 28, 0.45);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .neon-glow-text {
-            text-shadow: 0 0 12px rgba(6, 182, 212, 0.5), 0 0 25px rgba(168, 85, 247, 0.3);
-        }
-
-        .premium-transition {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .gradient-text { background: linear-gradient(135deg, #00f5d4 0%, #3b82f6 50%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-card { background: rgba(20, 20, 28, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .neon-glow-text { text-shadow: 0 0 12px rgba(6, 182, 212, 0.5), 0 0 25px rgba(168, 85, 247, 0.3); }
+        .premium-transition { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     </style>
 </head>
 <body class="bg-[#06060a] text-gray-200 antialiased selection:bg-cyan-500 selection:text-black overflow-x-hidden">
@@ -51,11 +36,9 @@
                 <a href="#categories" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Categories</a>
                 <a href="#plans" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Plans</a>
                 <a href="#portfolio" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Portfolio</a>
-                
                 <button onclick="toggleClientModal(true, 'login')" class="hover:text-cyan-400 hover:scale-[1.03] flex items-center cursor-pointer premium-transition">
                     <i class="fa-solid fa-right-to-bracket mr-1.5 text-xs"></i>Client Portal
                 </button>
-
                 <button onclick="toggleAdminModal(true)" class="hover:text-purple-400 hover:scale-[1.03] flex items-center cursor-pointer premium-transition">
                     <i class="fa-solid fa-user-shield mr-1.5 text-xs"></i>Admin Portal
                 </button>
@@ -76,11 +59,7 @@
                     <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
                     <span id="hero-tagline">Design & Dev Engine</span>
                 </div>
-                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-                    Your Dedicated <br>
-                    <span class="gradient-text">Web Design Team.</span> <br>
-                    Just A Subscription Away.
-                </h1>
+                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.15]"> Your Dedicated <br> <span class="gradient-text">Web Design Team.</span> <br> Just A Subscription Away. </h1>
                 <p id="hero-desc" class="text-base sm:text-lg text-gray-400 max-w-xl font-light leading-relaxed"></p>
                 <div class="flex flex-wrap items-center gap-4 pt-4">
                     <a href="#plans" class="bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-bold text-sm px-7 py-3.5 rounded-xl shadow-[0_4px_25px_rgba(34,211,238,0.3)] hover:shadow-[0_4px_35px_rgba(34,211,238,0.5)] transform hover:-translate-y-0.5 premium-transition flex items-center space-x-2">
@@ -169,22 +148,18 @@
                         <label class="block text-xs font-medium text-gray-400 mb-1.5">Full Name</label>
                         <input type="text" id="client-name" placeholder="Amit Gaurav" class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
                     </div>
-                    
                     <div>
                         <label class="block text-xs font-medium text-gray-400 mb-1.5">Email Address</label>
                         <input type="email" id="client-email" placeholder="name@company.com" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
                     </div>
-                    
                     <div>
                         <label class="block text-xs font-medium text-gray-400 mb-1.5">Password</label>
                         <input type="password" id="client-password" placeholder="••••••••" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
                     </div>
-
                     <div id="client-whatsapp-field" class="hidden">
                         <label class="block text-xs font-medium text-gray-400 mb-1.5">WhatsApp Number</label>
                         <input type="tel" id="client-whatsapp" placeholder="+91 98765 43210" class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
                     </div>
-
                     <div id="client-category-field" class="hidden">
                         <label class="block text-xs font-medium text-gray-400 mb-1.5">Website Category</label>
                         <select id="client-category" onchange="checkCustomCategoryCondition(this.value)" class="w-full bg-[#121218] border border-white/10 rounded-xl p-3 text-sm text-gray-300 focus:outline-none focus:border-cyan-400 premium-transition">
@@ -197,7 +172,6 @@
                             <option value="custom">Other / Custom Category...</option>
                         </select>
                     </div>
-
                     <div id="client-custom-category-field" class="hidden">
                         <label class="block text-xs font-medium text-purple-400 mb-1.5">Type Your Custom Category</label>
                         <input type="text" id="client-custom-category" placeholder="e.g. EdTech Platform, Gym Tracker..." class="w-full bg-white/[0.03] border border-purple-500/30 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-400 premium-transition">
@@ -216,9 +190,7 @@
                     <i class="fa-solid fa-circle-exclaim"></i><span id="client-error-text">Authentication node alert.</span>
                 </div>
 
-                <button type="submit" id="client-submit-btn" class="w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-white font-semibold text-sm py-3.5 rounded-xl shadow-lg hover:shadow-[0_0_25px_rgba(6,182,212,0.3)] hover:scale-[1.01] premium-transition mt-2 cursor-pointer">
-                    Sign In to Portal
-                </button>
+                <button type="submit" id="client-submit-btn" class="w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-white font-semibold text-sm py-3.5 rounded-xl shadow-lg hover:shadow-[0_0_25px_rgba(6,182,212,0.3)] hover:scale-[1.01] premium-transition mt-2 cursor-pointer"> Sign In to Portal </button>
             </form>
         </div>
     </div>
@@ -262,103 +234,29 @@
 
     <footer class="border-t border-white/5 bg-[#030305] pt-16 pb-8 text-gray-500 text-sm relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 border-b border-white/5 pb-12">
-            <div class="space-y-3 text-left">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Legal Framework</h4>
-                <ul class="space-y-2.5 text-xs">
-                    <li><button onclick="openDynamicModal('refund')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Refund Policy</button></li>
-                    <li><button onclick="openDynamicModal('terms')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Terms of Service</button></li>
-                    <li><button onclick="openDynamicModal('privacy')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Privacy Framework</button></li>
-                </ul>
-            </div>
-            <div class="space-y-3 text-left">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Business Structure</h4>
-                <ul class="space-y-2.5 text-xs">
-                    <li><button onclick="openDynamicModal('pricing_agreement')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">Pricing Agreement</button></li>
-                    <li><button onclick="openDynamicModal('sla')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">SLA Guidelines</button></li>
-                    <li><button onclick="openDynamicModal('scaling')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">Enterprise Scaling</button></li>
-                </ul>
-            </div>
-            <div class="space-y-3 text-left">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Support Center</h4>
-                <ul class="space-y-2.5 text-xs">
-                    <li><button onclick="openDynamicModal('faq')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Core FAQ Routing</button></li>
-                    <li><button onclick="openDynamicModal('contact')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Contact Support</button></li>
-                    <li><button onclick="openDynamicModal('ticket')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Submit Design Ticket</button></li>
-                </ul>
-            </div>
-            <div class="space-y-3 text-left">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-gray-300">Web Tolet Engine</h4>
-                <p class="text-xs text-gray-500 font-light leading-relaxed">High-velocity multi-tier subscription network optimizing modern production layers flawlessly.</p>
-            </div>
+            <div class="space-y-3 text-left"> <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Legal Framework</h4> <ul class="space-y-2.5 text-xs"> <li><button onclick="openDynamicModal('refund')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Refund Policy</button></li> <li><button onclick="openDynamicModal('terms')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Terms of Service</button></li> <li><button onclick="openDynamicModal('privacy')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Privacy Framework</button></li> </ul> </div>
+            <div class="space-y-3 text-left"> <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Business Structure</h4> <ul class="space-y-2.5 text-xs"> <li><button onclick="openDynamicModal('pricing_agreement')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">Pricing Agreement</button></li> <li><button onclick="openDynamicModal('sla')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">SLA Guidelines</button></li> <li><button onclick="openDynamicModal('scaling')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">Enterprise Scaling</button></li> </ul> </div>
+            <div class="space-y-3 text-left"> <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Support Center</h4> <ul class="space-y-2.5 text-xs"> <li><button onclick="openDynamicModal('faq')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Core FAQ Routing</button></li> <li><button onclick="openDynamicModal('contact')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Contact Support</button></li> <li><button onclick="openDynamicModal('ticket')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Submit Design Ticket</button></li> </ul> </div>
+            <div class="space-y-3 text-left"> <h4 class="text-xs font-bold uppercase tracking-widest text-gray-300">Web Tolet Engine</h4> <p class="text-xs text-gray-500 font-light leading-relaxed">High-velocity multi-tier subscription network optimizing modern production layers flawlessly.</p> </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center">
             <p id="footer-copy" class="text-xs font-light">© 2026 Web Tolet Studio Engine. All rights reserved.</p>
-            <div class="text-xs font-medium tracking-wide">
-                <span class="text-gray-400">Designed by</span>
-                <span class="font-bold gradient-text neon-glow-text pl-1 select-none animate-pulse">Amit Gaurav</span>
-            </div>
+            <div class="text-xs font-medium tracking-wide"> <span class="text-gray-400">Designed by</span> <span class="font-bold gradient-text neon-glow-text pl-1 select-none animate-pulse">Amit Gaurav</span> </div>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        const BACKUP_PREMIUM_DATA = {
-            logo: "Web Tolet",
-            promoBanner: "🎉 INTRODUCTORY OFFER: Use code PREMIUM26 to unlock immediate 20% flat savings on design queues!",
-            hero: {
-                tagline: "Design & Dev Engine",
-                title: "Your Dedicated Web Design Team. Just A Subscription Away.",
-                desc: "Scale your business footprint with high-velocity UI asset design, modular landing pages, and rapid custom deployment. Clean workflows directly integrated via your personalized dashboard pipeline.",
-                metrics: [
-                    { value: "99.9%", label: "Uptime & Speed", icon: "fa-chart-line" },
-                    { value: "Unlimited", label: "Design Revisions", icon: "fa-pen-nib" }
-                ]
-            },
-            categories: [
-                { title: "E-Commerce Infrastructure", desc: "Enterprise scale Shopify, high-performance headless WooCommerce architectures built for fluid buying conversion pipelines.", icon: "fa-cart-shopping" },
-                { title: "SaaS & High Growth Startups", desc: "Futuristic interactive dark layouts, complex asset cards, and analytics dashboard mockups tailored for software platforms.", icon: "fa-server" },
-                { title: "Luxury Real Estate", desc: "Ultra premium real-estate portal layouts, cinematic gallery grids, and immersive maps built for high-end project display.", icon: "fa-house-chimney" }
-            ],
-            durations: [
-                { id: "3m", label: "3 Months" },
-                { id: "6m", label: "6 Months (Best Value)", active: true },
-                { id: "12m", label: "12 Months (Max Savings)" }
-            ],
-            plans: [
-                { title: "Basic Tier", desc: "Perfect solution for early-stage standard validation setups.", price: { "3m": 1200, "6m": 2156, "12m": 3800 }, features: ["1 Active design flow pipeline", "Turnaround in 48 hours", "Unlimited core iterations"], antiFeatures: ["Dedicated slack sync channel"] },
-                { title: "Growth Engine Tier", desc: "The ultimate production speed layout for growing operational brands.", price: { "3m": 2400, "6m": 4316, "12m": 7900 }, features: ["2 Concurrent active design pipelines", "Priority 24-hour delivery target", "Unlimited core iterations", "Dedicated real-time slack sync channel"], antiFeatures: [], recommended: true },
-                { title: "Enterprise Tier", desc: "Complete dedicated studio execution handling multi-product scaling requirements.", price: { "3m": 4800, "6m": 8636, "12m": 15500 }, features: ["4 Concurrent active design pipelines", "Instant dedicated engineer allocation", "Custom tech-stack priority deployment", "Unlimited multi-product asset development"], antiFeatures: [] }
-            ],
-            portfolio: [
-                { title: "Nubos Cloud Dashboard", desc: "Glassmorphic futuristic node architecture framework analytics visualization setup.", category: "SAAS ASSETS", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" },
-                { title: "Aura Fintech Analytics", desc: "Neon electric charts engineered for data clarity and dark mode aesthetic depth.", category: "FINTECH UI", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" },
-                { title: "Aurum Luxury Homes", desc: "Minimalist layout card handling premium high-end properties presentation.", category: "REAL ESTATE", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" }
-            ],
-            testimonials: [
-                { name: "Marcus Vance", company: "Peak Fitness Executive", text: "The architectural depth of the layouts transformed our marketing conversion loops. A true enterprise design powerhouse.", rating: 5 },
-                { name: "Alina Kross", company: "Aurora AI Product Lead", text: "Incredible delivery velocities. Our design asset overhead vanished completely under this structured setup.", rating: 5 }
-            ],
-            documents: {
-                refund: { tag: "Legal node", title: "Refund Policy matrix", body: "<p>Refund requests can be cleanly raised within <b>7 business operating days</b> of your initial transaction cycle.</p>" },
-                terms: { tag: "Legal node", title: "Terms of Service Agreement", body: "<p>All source layouts turn entirely into your <b>absolute personal commercial property</b>.</p>" },
-                privacy: { tag: "Data protection", title: "Privacy Framework Matrix", body: "<p>Your project pipeline descriptions remain tightly secured under sandbox storage layers.</p>" },
-                pricing_agreement: { tag: "Commercials", title: "Pricing Framework Agreement", body: "<p>Subscription rates are strictly locked at initialization configurations.</p>" },
-                sla: { tag: "Operations", title: "SLA Production Guidelines", body: "<p>Our standard response metrics secure code asset deployment pipelines inside <b>24 to 48 hours</b>.</p>" },
-                scaling: { tag: "Enterprise", title: "Enterprise Scaling Nodes", body: "<p>Our engine supports scaling structures flawlessly up to 10 concurrent active pipelines.</p>" },
-                faq: { tag: "Help Node", title: "Core FAQ Routing", body: "<div class='space-y-3'><div><b>Q: How do design request updates process?</b><p class='text-gray-500 text-xs mt-0.5'>A: Drop your specs via dashboard interface. Our asset queue picks them up instantly.</p></div></div>" },
-                contact: { tag: "Support", title: "Contact Engineering Support", body: "<p>Direct support communication routing manager lines open safely at <b>support@webtolet.com</b></p>" },
-                ticket: { tag: "Ticket Sync", title: "Submit Active Design Ticket", body: "<p>Register structural issues regarding asset layers directly inside secure customer channels.</p>" }
-            }
-        };
-
+        const BACKUP_PREMIUM_DATA = { logo: "Web Tolet", promoBanner: "🎉 INTRODUCTORY OFFER...", hero: { tagline: "Engine", title: "Web Design Team.", desc: "Workflows." }, categories: [], durations: [], plans: [], portfolio: [], testimonials: [], documents: {} };
         let ACTIVE_GLOBAL_DATA = BACKUP_PREMIUM_DATA;
         let activeAuthMode = 'login'; 
         let isOtpSentStage = false; 
+        let cachedSelectedPlan = null; // Memory cache logic allocation mapping node rules
 
-        // Client Modal Controller
-        window.toggleClientModal = function(isOpen, mode = 'login') {
+        window.toggleClientModal = function(isOpen, mode = 'login', targetPlan = null) {
             const modal = document.getElementById('client-modal');
             const content = document.getElementById('client-modal-content');
+            if (targetPlan) cachedSelectedPlan = targetPlan; // Capture plan variables metrics if triggered directly
             if(isOpen) {
                 modal.classList.remove('opacity-0', 'pointer-events-none');
                 content.classList.remove('scale-95'); content.classList.add('scale-100');
@@ -371,7 +269,6 @@
             }
         }
 
-        // Reset state helper
         function resetAuthModalState() {
             isOtpSentStage = false;
             document.getElementById('client-profile-fields').classList.remove('hidden');
@@ -380,10 +277,8 @@
             document.getElementById('client-submit-btn').innerText = activeAuthMode === 'login' ? "Sign In to Portal" : "Send Verification OTP";
         }
 
-        // Switch Tabs inside Client Auth Modal
         window.switchClientAuthTab = function(mode) {
             if(isOtpSentStage) return; 
-            
             activeAuthMode = mode;
             const loginTab = document.getElementById('tab-client-login');
             const signupTab = document.getElementById('tab-client-signup');
@@ -399,22 +294,17 @@
             if(mode === 'login') {
                 loginTab.className = "w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition";
                 signupTab.className = "w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition";
-                nameField.classList.add('hidden');
-                whatsappField.classList.add('hidden');
-                catField.classList.add('hidden');
+                nameField.classList.add('hidden'); whatsappField.classList.add('hidden'); catField.classList.add('hidden');
                 submitBtn.innerText = "Sign In to Portal";
             } else {
                 signupTab.className = "w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition";
                 loginTab.className = "w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition";
-                nameField.classList.remove('hidden');
-                whatsappField.classList.remove('hidden');
-                catField.classList.remove('hidden');
+                nameField.classList.remove('hidden'); whatsappField.classList.remove('hidden'); catField.classList.remove('hidden');
                 submitBtn.innerText = "Send Verification OTP";
                 document.getElementById('client-category').value = "E-Commerce Store";
             }
         }
 
-        // Check custom category select dropdown option state
         window.checkCustomCategoryCondition = function(selectedValue) {
             const customField = document.getElementById('client-custom-category-field');
             if(selectedValue === 'custom') {
@@ -426,7 +316,89 @@
             }
         }
 
-        // Handle Form Validation & Multi-stage Gmail OTP Flow verification connected to Render Backend URL
+        // STEP 2: FRONTEND - Process Order Trigger and Open Razorpay Checkout overlay Modal
+        window.initializeRazorpayPaymentEngine = async function(clientData) {
+            const submitBtn = document.getElementById('client-submit-btn');
+            const errorDiv = document.getElementById('client-auth-error');
+            const errorTxt = document.getElementById('client-error-text');
+
+            try {
+                // Initialize Order parameters via endpoint orchestration rule tracking
+                const orderRes = await fetch('https://web-tolet.onrender.com/api/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: clientData.amount, currency: 'INR' })
+                });
+                
+                const orderData = await orderRes.json();
+                if(!orderData.success) {
+                    throw new Error(orderData.message || "Failed execution parameters logs.");
+                }
+
+                // Razorpay custom operational gateway variables properties
+                const paymentOptions = {
+                    key: "rzp_test_SvgkpvWVtsappM", // Client public Key Token ID
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    name: "Web Tolet Studio",
+                    description: `Subscription Flow: ${clientData.tier}`,
+                    order_id: orderData.order_id,
+                    prefill: {
+                        name: clientData.name,
+                        email: clientData.email,
+                        contact: clientData.whatsapp
+                    },
+                    theme: { color: "#06b6d4" },
+                    handler: async function (response) {
+                        // Success block: Send metadata to verify signature endpoint tunnel
+                        submitBtn.innerText = "Finishing Activation...";
+                        try {
+                            const verifyRes = await fetch('https://web-tolet.onrender.com/api/verify-payment', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature,
+                                    client_data: clientData
+                                })
+                            });
+
+                            const verifyData = await verifyRes.json();
+                            if(verifyData.success) {
+                                alert(`Payment Verified! Account Created for ${clientData.name} under ${clientData.tier}.`);
+                                toggleClientModal(false);
+                            } else {
+                                alert("Signature verification mapping failed. Security alert!");
+                            }
+                        } catch (err) {
+                            alert("Critical verification handshake endpoint error routing failure.");
+                        }
+                    },
+                    "modal": {
+                        "ondismiss": function(){
+                            alert("Payment overlay dismissed by user. Transaction pipeline paused.");
+                            submitBtn.innerText = "Verify OTP & Create Account";
+                            submitBtn.disabled = false;
+                        }
+                    }
+                };
+
+                const rzpWindowObj = new Razorpay(paymentOptions);
+                rzpWindowObj.on('payment.failed', function (response){
+                    alert(`Transaction Fault Code: ${response.error.code}. Message: ${response.error.description}`);
+                });
+                
+                rzpWindowObj.open();
+                
+            } catch (err) {
+                errorTxt.innerText = err.message || "Order orchestration dropped. Ensure backend parameters match.";
+                errorDiv.classList.remove('hidden');
+                submitBtn.innerText = "Verify OTP & Create Account";
+                submitBtn.disabled = false;
+            }
+        }
+
         document.getElementById('client-auth-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('client-email').value;
@@ -438,156 +410,118 @@
             if(activeAuthMode === 'login') {
                 if(email === 'client@demo.com' && password === 'client2026') {
                     errorDiv.classList.add('hidden');
-                    alert("Verification successful! Redirecting to client dashboard...");
+                    alert("Verification successful! Loading client workspace...");
                 } else {
                     errorTxt.innerText = "Invalid client records. Try client@demo.com / client2026";
                     errorDiv.classList.remove('hidden');
                 }
             } else {
-                // SIGNUP MODE LIVE CONNECTED TO RENDER SERVER
                 if(!isOtpSentStage) {
                     const name = document.getElementById('client-name').value;
                     const whatsapp = document.getElementById('client-whatsapp').value;
                     let finalCategory = document.getElementById('client-category').value;
-                    
-                    if(finalCategory === 'custom') {
-                        finalCategory = document.getElementById('client-custom-category').value;
-                    }
+                    if(finalCategory === 'custom') finalCategory = document.getElementById('client-custom-category').value;
 
                     if(!name || !whatsapp || !finalCategory) {
-                        errorTxt.innerText = "All parameters (Name, WhatsApp, Category) are required.";
-                        errorDiv.classList.remove('hidden');
-                        return;
+                        errorTxt.innerText = "All profile metadata attributes mapping are required.";
+                        errorDiv.classList.remove('hidden'); return;
                     }
 
                     errorDiv.classList.add('hidden');
-                    submitBtn.innerText = "Processing Queue...";
-                    submitBtn.disabled = true;
+                    submitBtn.innerText = "Processing Queue..."; submitBtn.disabled = true;
                     
                     try {
-                        // LIVE ENDPOINT 1: Triggers real nodemailer code creation over Render network mapping
                         const sendOtpResponse = await fetch('https://web-tolet.onrender.com/api/auth/send-otp', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ email: email })
                         });
-                        
                         const sendOtpData = await sendOtpResponse.json();
-                        
                         if(sendOtpData.success) {
                             isOtpSentStage = true;
                             document.getElementById('client-profile-fields').classList.add('hidden');
                             document.getElementById('client-otp-field').classList.remove('hidden');
                             document.getElementById('client-otp').required = true;
-                            submitBtn.innerText = "Verify OTP & Create Account";
+                            submitBtn.innerText = "Verify OTP & Proceed to Payment";
                             alert(`A secure 6-digit verification code has been dispatched to ${email}!`);
                         } else {
-                            errorTxt.innerText = sendOtpData.message || "Failed to dispatch verification email node.";
+                            errorTxt.innerText = sendOtpData.message || "Email setup configuration error.";
                             errorDiv.classList.remove('hidden');
-                            submitBtn.innerText = "Send Verification OTP";
                         }
                     } catch(err) {
-                        errorTxt.innerText = "Connection block failure. Ensure Render backend architecture is active.";
+                        errorTxt.innerText = "Connection failure route node mapping diagnostics mismatch.";
                         errorDiv.classList.remove('hidden');
-                        submitBtn.innerText = "Send Verification OTP";
-                    } finally {
-                        submitBtn.disabled = false;
-                    }
+                    } finally { submitBtn.disabled = false; }
                 } else {
+                    // STAGE 2: Code configuration matrix mapping checks
                     const otpCode = document.getElementById('client-otp').value;
-                    if(otpCode.length !== 6) {
-                        errorTxt.innerText = "Enter full 6-digit configuration code array matrix nodes.";
-                        errorDiv.classList.remove('hidden');
-                        return;
-                    }
+                    if(otpCode.length !== 6) { errorTxt.innerText = "Enter full 6 digits code array token."; errorDiv.classList.remove('hidden'); return; }
 
-                    submitBtn.innerText = "Verifying Credentials...";
-                    submitBtn.disabled = true;
-
-                    let finalCategory = document.getElementById('client-category').value;
-                    if(finalCategory === 'custom') finalCategory = document.getElementById('client-custom-category').value;
+                    submitBtn.innerText = "Verifying Verification Token..."; submitBtn.disabled = true;
 
                     try {
-                        // LIVE ENDPOINT 2: Verifies dynamic temporary map logs and pushes validated data object payload rows to data.json DB
                         const verifyResponse = await fetch('https://web-tolet.onrender.com/api/auth/verify-otp', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                email: email,
-                                otp: otpCode,
-                                name: document.getElementById('client-name').value,
-                                whatsapp: document.getElementById('client-whatsapp').value,
-                                category: finalCategory
-                            })
+                            body: JSON.stringify({ email: email, otp: otpCode })
                         });
-
                         const verifyData = await verifyResponse.json();
 
                         if(verifyData.success) {
                             errorDiv.classList.add('hidden');
-                            alert(`Gmail Verified Successfully! Account indexing completed for ${document.getElementById('client-name').value}.`);
-                            toggleClientModal(false);
+                            
+                            // Initialize Account Profile Mapping Payload metrics
+                            let finalCategory = document.getElementById('client-category').value;
+                            if(finalCategory === 'custom') finalCategory = document.getElementById('client-custom-category').value;
+
+                            const clientProfilePayload = {
+                                name: document.getElementById('client-name').value,
+                                email: email,
+                                whatsapp: document.getElementById('client-whatsapp').value,
+                                category: finalCategory,
+                                tier: cachedSelectedPlan ? cachedSelectedPlan.title : "Growth Engine Tier",
+                                amount: cachedSelectedPlan ? (cachedSelectedPlan.cost * 100) : 431600 // Falling to paise standards matrix rules
+                            };
+
+                            submitBtn.innerText = "Launching Razorpay Modal Interface Node...";
+                            await initializeRazorpayPaymentEngine(clientProfilePayload);
                         } else {
-                            errorTxt.innerText = verifyData.message || "Incorrect OTP code matrix configuration setup.";
-                            errorDiv.className = "text-xs text-rose-400 font-medium flex items-center space-x-1.5 pt-1";
+                            errorTxt.innerText = verifyData.message || "Incorrect OTP token validation arrays.";
+                            errorDiv.classList.remove('hidden');
+                            submitBtn.disabled = false;
                         }
                     } catch(err) {
-                        errorTxt.innerText = "Verification endpoint sync failure. Check database parameters logs.";
-                        errorDiv.classList.remove('hidden');
-                    } finally {
-                        submitBtn.disabled = false;
+                        errorTxt.innerText = " Handshake route matrix configuration dropped.";
+                        errorDiv.classList.remove('hidden'); submitBtn.disabled = false;
                     }
                 }
             }
         });
 
-        // Admin Modal Controller
         window.toggleAdminModal = function(isOpen) {
-            const modal = document.getElementById('admin-modal');
-            const content = document.getElementById('modal-content');
-            if(isOpen) {
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                content.classList.remove('scale-95'); content.classList.add('scale-100');
-            } else {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                content.classList.remove('scale-100'); content.classList.add('scale-95');
-                document.getElementById('login-error-msg').classList.add('hidden');
-            }
+            const modal = document.getElementById('admin-modal'); const content = document.getElementById('modal-content');
+            if(isOpen) { modal.classList.remove('opacity-0', 'pointer-events-none'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }
+            else { modal.classList.add('opacity-0', 'pointer-events-none'); content.classList.remove('scale-100'); content.classList.add('scale-95'); document.getElementById('login-error-msg').classList.add('hidden'); }
         }
 
         window.toggleContentModal = function(isOpen) {
-            const modal = document.getElementById('content-modal');
-            const box = document.getElementById('content-modal-box');
-            if(isOpen) {
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                box.classList.remove('scale-95'); box.classList.add('scale-100');
-            } else {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                box.classList.remove('scale-100'); box.classList.add('scale-95');
-            }
+            const modal = document.getElementById('content-modal'); const box = document.getElementById('content-modal-box');
+            if(isOpen) { modal.classList.remove('opacity-0', 'pointer-events-none'); box.classList.remove('scale-95'); box.classList.add('scale-100'); }
+            else { modal.classList.add('opacity-0', 'pointer-events-none'); box.classList.remove('scale-100'); box.classList.add('scale-95'); }
         }
 
         window.openDynamicModal = function(docKey) {
             const doc = ACTIVE_GLOBAL_DATA.documents[docKey];
-            if(doc) {
-                document.getElementById('modal-content-tag').innerText = doc.tag;
-                document.getElementById('modal-content-title').innerText = doc.title;
-                document.getElementById('modal-content-body').innerHTML = doc.body;
-                toggleContentModal(true);
-            }
+            if(doc) { document.getElementById('modal-content-tag').innerText = doc.tag; document.getElementById('modal-content-title').innerText = doc.title; document.getElementById('modal-content-body').innerHTML = doc.body; toggleContentModal(true); }
         }
 
         async function initializeWebsite() {
             try {
-                // LIVE ENDPOINT 3: Pulls current dynamic structural layout configurations array matrix from Render JSON DB securely
                 const response = await fetch('https://web-tolet.onrender.com/api/website-data');
                 if(response.ok) ACTIVE_GLOBAL_DATA = await response.json();
-            } catch (e) {
-                console.warn("API network channel resting; launching cache parameters engine runtime successfully.");
-            }
+            } catch (e) { console.warn("Cache configurations loaded successfully."); }
 
             const DATA = ACTIVE_GLOBAL_DATA;
-
             document.getElementById('promo-banner').innerText = DATA.promoBanner;
             document.getElementById('logo-text').innerText = DATA.logo;
             document.getElementById('hero-tagline').innerText = DATA.hero.tagline;
@@ -604,9 +538,7 @@
 
             document.getElementById('categories-grid').innerHTML = DATA.categories.map(c => `
                 <div class="group glass-card border border-white/5 hover:border-cyan-400/40 rounded-2xl p-6 text-left shadow-lg transform hover:-translate-y-1.5 premium-transition">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 text-lg mb-5 group-hover:bg-cyan-400 group-hover:text-black premium-transition">
-                        <i class="fa-solid ${c.icon || 'fa-cubes'}"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 text-lg mb-5 group-hover:bg-cyan-400 group-hover:text-black premium-transition"><i class="fa-solid ${c.icon || 'fa-cubes'}"></i></div>
                     <h3 class="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 premium-transition tracking-tight">${c.title}</h3>
                     <p class="text-sm text-gray-400 font-light leading-relaxed">${c.desc}</p>
                 </div>
@@ -644,7 +576,7 @@
                                 ${p.antiFeatures && p.antiFeatures.length > 0 ? p.antiFeatures.map(af => `<li class="flex items-start space-x-2.5 text-gray-600 line-through"><i class="fa-solid fa-square-xmark mt-0.5 text-xs"></i><span>${af}</span></li>`).join('') : ''}
                             </ul>
                         </div>
-                        <button onclick="toggleClientModal(true, 'signup')" class="w-full mt-8 py-3.5 rounded-xl font-bold text-sm transform active:scale-[0.99] premium-transition cursor-pointer ${p.recommended ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-purple-500/10' : 'bg-white/5 text-gray-200 hover:bg-white/10 border border-white/5'}">Subscribe Plan</button>
+                        <button onclick="toggleClientModal(true, 'signup', {title: '${p.title}', cost: ${p.price[activeDurationId]}})" class="w-full mt-8 py-3.5 rounded-xl font-bold text-sm transform active:scale-[0.99] premium-transition cursor-pointer ${p.recommended ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-purple-500/10' : 'bg-white/5 text-gray-200 hover:bg-white/10 border border-white/5'}">Subscribe Plan</button>
                     </div>
                 `).join('');
             };
@@ -679,16 +611,10 @@
             const userVal = document.getElementById('login-username').value;
             const passVal = document.getElementById('login-password').value;
             const errorArea = document.getElementById('login-error-msg');
-
-            if(userVal === 'admin' && passVal === 'webtolet2026') {
-                errorArea.classList.add('hidden');
-                window.location.href = '/admin.html';
-            } else {
-                errorArea.className = "text-xs text-rose-400 font-medium flex items-center space-x-1.5 pt-1";
-            }
+            if(userVal === 'admin' && passVal === 'webtolet2026') { errorArea.classList.add('hidden'); window.location.href = '/admin.html'; }
+            else { errorArea.className = "text-xs text-rose-400 font-medium flex items-center space-x-1.5 pt-1"; }
         });
 
-        // Background overlay click handlers
         document.getElementById('content-modal').addEventListener('click', function(e) { if(e.target === this) toggleContentModal(false); });
         document.getElementById('admin-modal').addEventListener('click', function(e) { if(e.target === this) toggleAdminModal(false); });
         document.getElementById('client-modal').addEventListener('click', function(e) { if(e.target === this) toggleClientModal(false); });

@@ -15,7 +15,7 @@
         body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
         .gradient-text { background: linear-gradient(135deg, #00f5d4 0%, #3b82f6 50%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .glass-card { background: rgba(20, 20, 28, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .neon-glow-text { text-shadow: 0 0 12px rgba(6, 182, 212, 0.5), 0 0 25px rgba(168, 85, 247, 0.3); }
+        .neon-glow-text { text-shadow: 0 0 12 px rgba(6, 182, 212, 0.5), 0 0 25 px rgba(168, 85, 247, 0.3); }
         .premium-transition { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     </style>
 </head>
@@ -201,7 +201,7 @@
                     <input type="password" id="login-password" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-400">
                 </div>
                 <div id="login-error-msg" class="text-xs text-rose-400 font-medium hidden">Invalid credentials.</div>
-                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-semibold text-sm py-3.5 rounded-xl cursor-pointer">Verify & Enter Dashboard</button>
+                <button type="submit" id="admin-login-btn" class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-semibold text-sm py-3.5 rounded-xl cursor-pointer">Verify & Enter Dashboard</button>
             </form>
         </div>
     </div>
@@ -268,7 +268,12 @@
             ],
             documents: {
                 refund: { tag: "Legal", title: "Refund Policy", body: "<p>Due to the premium resource allocation of customized digital design assets, refunds are completely restricted after dynamic production queues initialize.</p>" },
-                terms: { tag: "Legal", title: "Terms of Service", body: "<p>By enrolling in our active subscription systems layout, you grant Web Tolet access to requirements assets mapping protocols.</p>" }
+                terms: { tag: "Legal", title: "Terms of Service", body: "<p>By enrolling in our active subscription systems layout, you grant Web Tolet access to requirements assets mapping protocols.</p>" },
+                privacy: { tag: "Legal", title: "Privacy Framework", body: "<p>We respect your privacy and secure all user logs and registration records safely inside isolated application database matrices.</p>" },
+                pricing_agreement: { tag: "Agreement", title: "Pricing Framework Setup", body: "<p>All multi-tier agency pricing matrices are strictly locked dynamically at user checkouts.</p>" },
+                sla: { tag: "Guidelines", title: "SLA Guidelines Pipeline", body: "<p>Standard asset deliverable iterations deploy cleanly inside 24 to 48 operational pipeline hours maximum.</p>" },
+                faq: { tag: "FAQ Router", title: "Core FAQ Routing Systems", body: "<p><b>Q: How do revisions process?</b><br>A: Open your secure workspace node and drop asset notes direct into active deployment arrays framework logs.</p>" },
+                contact: { tag: "Support", title: "Contact Studio Engineering", body: "<p>Direct support channels route cleanly at <b>support@webtolet.com</b> twenty-four seven.</p>" }
             }
         };
 
@@ -277,6 +282,7 @@
         let isOtpSentStage = false; 
         let cachedSelectedPlan = null;
         let activeDurationId = "monthly";
+        const API_BASE = "https://web-tolet.onrender.com"; // Clean globally managed endpoint URL variable
 
         window.toggleClientModal = function(isOpen, mode = 'login', targetPlan = null) {
             const modal = document.getElementById('client-modal');
@@ -346,7 +352,7 @@
             const errorTxt = document.getElementById('client-error-text');
 
             try {
-                const orderRes = await fetch('https://web-tolet.onrender.com/api/create-order', {
+                const orderRes = await fetch(`${API_BASE}/api/create-order`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ amount: clientData.amount, currency: 'INR' })
@@ -367,7 +373,7 @@
                     handler: async function (response) {
                         submitBtn.innerText = "Finishing Activation...";
                         try {
-                            const verifyRes = await fetch('https://web-tolet.onrender.com/api/verify-payment', {
+                            const verifyRes = await fetch(`${API_BASE}/api/verify-payment`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
@@ -419,10 +425,10 @@
                 errorDiv.classList.remove('hidden');
             } else {
                 if(!isOtpSentStage) {
-                    submitBtn.innerText = "Processing..."; submitBtn.disabled = true;
+                    submitBtn.innerText = "Processing Queue..."; submitBtn.disabled = true;
                     errorDiv.classList.add('hidden');
                     try {
-                        const sendOtpResponse = await fetch('https://web-tolet.onrender.com/api/auth/send-otp', {
+                        const sendOtpResponse = await fetch(`${API_BASE}/api/auth/send-otp`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ email: email })
@@ -456,7 +462,7 @@
                     submitBtn.innerText = "Verifying OTP..."; submitBtn.disabled = true;
                     errorDiv.classList.add('hidden');
                     try {
-                        const verifyResponse = await fetch('https://web-tolet.onrender.com/api/auth/verify-otp', {
+                        const verifyResponse = await fetch(`${API_BASE}/api/auth/verify-otp`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ email: email, otp: otpCode })
@@ -517,7 +523,8 @@
             document.getElementById('hero-title').innerHTML = DATA.hero.title;
             document.getElementById('hero-desc').innerText = DATA.hero.desc;
 
-            document.getElementById('hero-metrics').innerHTML = DATA.hero.metrics.map(m => `
+            // BUG FIX 1: Safety validation fallback on array mapping elements
+            document.getElementById('hero-metrics').innerHTML = (DATA.hero.metrics || BACKUP_PREMIUM_DATA.hero.metrics).map(m => `
                 <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center shadow-md">
                     <i class="fa-solid ${m.icon} text-cyan-400 mb-1 block text-base animate-pulse"></i>
                     <div class="text-lg font-bold text-white tracking-tight">${m.value}</div>
@@ -525,7 +532,7 @@
                 </div>
             `).join('');
 
-            document.getElementById('categories-grid').innerHTML = DATA.categories.map(c => `
+            document.getElementById('categories-grid').innerHTML = (DATA.categories && DATA.categories.length > 0 ? DATA.categories : BACKUP_PREMIUM_DATA.categories).map(c => `
                 <div class="group glass-card border border-white/5 hover:border-cyan-400/40 rounded-2xl p-6 text-left transform hover:-translate-y-1.5 premium-transition">
                     <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 text-lg mb-5 group-hover:bg-cyan-400 group-hover:text-black premium-transition"><i class="fa-solid ${c.icon || 'fa-cubes'}"></i></div>
                     <h3 class="text-lg font-semibold text-white mb-2 group-hover:text-cyan-400 premium-transition tracking-tight">${c.title}</h3>
@@ -533,7 +540,7 @@
                 </div>
             `).join('');
 
-            document.getElementById('portfolio-grid').innerHTML = DATA.portfolio.map(p => `
+            document.getElementById('portfolio-grid').innerHTML = (DATA.portfolio && DATA.portfolio.length > 0 ? DATA.portfolio : BACKUP_PREMIUM_DATA.portfolio).map(p => `
                 <div class="group glass-card border border-white/5 rounded-2xl overflow-hidden premium-transition">
                     <div class="aspect-video w-full overflow-hidden bg-gray-950 relative">
                         <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-[1.04] premium-transition opacity-75" />
@@ -547,7 +554,7 @@
             `).join('');
 
             window.renderPlansLayout = function() {
-                document.getElementById('pricing-grid').innerHTML = DATA.plans.map(p => `
+                document.getElementById('pricing-grid').innerHTML = (DATA.plans && DATA.plans.length > 0 ? DATA.plans : BACKUP_PREMIUM_DATA.plans).map(p => `
                     <div class="relative glass-card border ${p.recommended ? 'border-purple-500 shadow-[0_0_40px_rgba(168,85,247,0.12)]' : 'border-white/5'} rounded-2xl p-8 flex flex-col justify-between transform premium-transition">
                         ${p.recommended ? '<span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest">Recommended</span>' : ''}
                         <div>
@@ -575,7 +582,7 @@
                 targetEl.className = "tab-toggle-btn px-5 py-2 rounded-xl text-xs font-semibold bg-white/10 text-white shadow border border-white/10 cursor-pointer";
             };
 
-            document.getElementById('testimonials-grid').innerHTML = DATA.testimonials.map(t => `
+            document.getElementById('testimonials-grid').innerHTML = (DATA.testimonials && DATA.testimonials.length > 0 ? DATA.testimonials : BACKUP_PREMIUM_DATA.testimonials).map(t => `
                 <div class="glass-card border border-white/5 rounded-2xl p-6 text-left shadow-md">
                     <div class="flex text-amber-400 space-x-1 mb-4">${Array(t.rating).fill('<i class="fa-solid fa-star text-xs"></i>').join('')}</div>
                     <p class="text-sm text-gray-300 italic leading-relaxed mb-6">"${t.text}"</p>
@@ -591,7 +598,7 @@
         async function initializeWebsite() {
             renderDynamicDOMElements(); 
             try {
-                const response = await fetch('https://web-tolet.onrender.com/api/website-data');
+                const response = await fetch(`${API_BASE}/api/website-data`);
                 if(response.ok) {
                     const serverData = await response.json();
                     if(serverData && serverData.categories && serverData.categories.length > 0) {
@@ -603,11 +610,39 @@
             AOS.init({ once: true });
         }
 
-        document.getElementById('homepage-login-form').addEventListener('submit', function(e) {
+        // HIGH SECURITY METHOD: Admin authentication processing securely over server logic pipeline
+        document.getElementById('homepage-login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            if(document.getElementById('login-username').value === 'admin' && document.getElementById('login-password').value === 'webtolet2026') {
-                window.location.href = '/admin.html';
-            } else { document.getElementById('login-error-msg').classList.remove('hidden'); }
+            const userVal = document.getElementById('login-username').value;
+            const passVal = document.getElementById('login-password').value;
+            const errorArea = document.getElementById('login-error-msg');
+            const loginBtn = document.getElementById('admin-login-btn');
+
+            loginBtn.innerText = "Verifying Cryptography Tunnels...";
+            loginBtn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: userVal, password: passVal })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    errorArea.classList.add('hidden');
+                    localStorage.setItem('admin_session_token', data.token); // Store secure token string safely
+                    window.location.href = '/admin.html';
+                } else {
+                    errorArea.innerText = data.message || "Invalid configuration parameters.";
+                    errorArea.classList.remove('hidden');
+                }
+            } catch(err) {
+                errorArea.innerText = "Connection validation abort error.";
+                errorArea.classList.remove('hidden');
+            } finally {
+                loginBtn.innerText = "Verify & Enter Dashboard";
+                loginBtn.disabled = false;
+            }
         });
 
         initializeWebsite();

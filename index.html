@@ -179,13 +179,27 @@
                     <input type="password" id="client-password" placeholder="••••••••" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
                 </div>
 
-                <div id="client-tier-field" class="hidden">
-                    <label class="block text-xs font-medium text-gray-400 mb-1.5">Select Preferred Subscription Tier</label>
-                    <select id="client-tier" class="w-full bg-[#121218] border border-white/10 rounded-xl p-3 text-sm text-gray-300 focus:outline-none focus:border-cyan-400 premium-transition">
-                        <option value="Basic Tier">Basic Tier Plan</option>
-                        <option value="Growth Engine Tier" selected>Growth Engine Tier (Recommended)</option>
-                        <option value="Enterprise Tier">Enterprise Tier Studio</option>
+                <div id="client-whatsapp-field" class="hidden">
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">WhatsApp Number</label>
+                    <input type="tel" id="client-whatsapp" placeholder="+91 98765 43210" class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
+                </div>
+
+                <div id="client-category-field" class="hidden">
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">Website Category</label>
+                    <select id="client-category" onchange="checkCustomCategoryCondition(this.value)" class="w-full bg-[#121218] border border-white/10 rounded-xl p-3 text-sm text-gray-300 focus:outline-none focus:border-cyan-400 premium-transition">
+                        <option value="E-Commerce Store">E-Commerce Store Infrastructure</option>
+                        <option value="SaaS Landing Page">SaaS & Startup Launchpad</option>
+                        <option value="Luxury Real Estate">Luxury Real Estate Portal</option>
+                        <option value="Restaurant & Cafe">Restaurant & Café Menu</option>
+                        <option value="Corporate Business">Corporate Brand Agency</option>
+                        <option value="Personal Portfolio">Creative Personal Portfolio</option>
+                        <option value="custom">Other / Custom Category...</option>
                     </select>
+                </div>
+
+                <div id="client-custom-category-field" class="hidden">
+                    <label class="block text-xs font-medium text-purple-400 mb-1.5">Type Your Custom Category</label>
+                    <input type="text" id="client-custom-category" placeholder="e.g. EdTech Platform, Gym Tracker..." class="w-full bg-white/[0.03] border border-purple-500/30 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-400 premium-transition">
                 </div>
 
                 <div id="client-auth-error" class="text-xs text-rose-400 font-medium hidden flex items-center space-x-1.5 pt-1">
@@ -315,12 +329,12 @@
                 { name: "Alina Kross", company: "Aurora AI Product Lead", text: "Incredible delivery velocities. Our design asset overhead vanished completely under this structured setup.", rating: 5 }
             ],
             documents: {
-                refund: { tag: "Legal node", title: "Refund Policy matrix", body: "<p>We hold high confidence in our asset delivery speeds. If you wish to terminate processing operations, subscription refund requests can be cleanly raised within <b>7 business operating days</b> of your initial transaction cycle.</p>" },
-                terms: { tag: "Legal node", title: "Terms of Service Agreement", body: "<p>All source UI vector components, structural layout cards, and compiled design delivery assets turn entirely into your <b>absolute personal commercial property</b>.</p>" },
-                privacy: { tag: "Data protection", title: "Privacy Framework Matrix", body: "<p>Your project pipeline descriptions, brand guidelines, secure login matrices, and source media buffers remain tightly secured.</p>" },
-                pricing_agreement: { tag: "Commercials", title: "Pricing Framework Agreement", body: "<p>Subscription rates are strictly locked at initialization configurations and remain highly stable.</p>" },
-                sla: { tag: "Operations", title: "SLA Production Guidelines", body: "<p>Our standard response metrics secure code asset deployment pipelines inside <b>24 to 48 hours</b> under clean processing flows.</p>" },
-                scaling: { tag: "Enterprise", title: "Enterprise Scaling Nodes", body: "<p>For organizations maintaining extensive brand development loops, our engine supports scaling structures flawlessly.</p>" },
+                refund: { tag: "Legal node", title: "Refund Policy matrix", body: "<p>Refund requests can be cleanly raised within <b>7 business operating days</b> of your initial transaction cycle.</p>" },
+                terms: { tag: "Legal node", title: "Terms of Service Agreement", body: "<p>All source layouts turn entirely into your <b>absolute personal commercial property</b>.</p>" },
+                privacy: { tag: "Data protection", title: "Privacy Framework Matrix", body: "<p>Your project pipeline descriptions remain tightly secured under sandbox storage layers.</p>" },
+                pricing_agreement: { tag: "Commercials", title: "Pricing Framework Agreement", body: "<p>Subscription rates are strictly locked at initialization configurations.</p>" },
+                sla: { tag: "Operations", title: "SLA Production Guidelines", body: "<p>Our standard response metrics secure code asset deployment pipelines inside <b>24 to 48 hours</b>.</p>" },
+                scaling: { tag: "Enterprise", title: "Enterprise Scaling Nodes", body: "<p>Our engine supports scaling structures flawlessly up to 10 concurrent active pipelines.</p>" },
                 faq: { tag: "Help Node", title: "Core FAQ Routing", body: "<div class='space-y-3'><div><b>Q: How do design request updates process?</b><p class='text-gray-500 text-xs mt-0.5'>A: Drop your specs via dashboard interface. Our asset queue picks them up instantly.</p></div></div>" },
                 contact: { tag: "Support", title: "Contact Engineering Support", body: "<p>Direct support communication routing manager lines open safely at <b>support@webtolet.com</b></p>" },
                 ticket: { tag: "Ticket Sync", title: "Submit Active Design Ticket", body: "<p>Register structural issues regarding asset layers directly inside secure customer channels.</p>" }
@@ -328,7 +342,7 @@
         };
 
         let ACTIVE_GLOBAL_DATA = BACKUP_PREMIUM_DATA;
-        let activeAuthMode = 'login'; // 'login' or 'signup'
+        let activeAuthMode = 'login'; 
 
         // Client Modal Controller
         window.toggleClientModal = function(isOpen, mode = 'login') {
@@ -351,27 +365,44 @@
             const loginTab = document.getElementById('tab-client-login');
             const signupTab = document.getElementById('tab-client-signup');
             const nameField = document.getElementById('client-name-field');
-            const tierField = document.getElementById('client-tier-field');
+            const whatsappField = document.getElementById('client-whatsapp-field');
+            const catField = document.getElementById('client-category-field');
             const submitBtn = document.getElementById('client-submit-btn');
 
             document.getElementById('client-auth-error').classList.add('hidden');
+            document.getElementById('client-custom-category-field').classList.add('hidden');
 
             if(mode === 'login') {
                 loginTab.className = "w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition";
                 signupTab.className = "w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition";
                 nameField.classList.add('hidden');
-                tierField.classList.add('hidden');
+                whatsappField.classList.add('hidden');
+                catField.classList.add('hidden');
                 submitBtn.innerText = "Sign In to Client Portal";
             } else {
                 signupTab.className = "w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition";
                 loginTab.className = "w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition";
                 nameField.classList.remove('hidden');
-                tierField.classList.remove('hidden');
-                submitBtn.innerText = "Initialize Account Tier";
+                whatsappField.classList.remove('hidden');
+                catField.classList.remove('hidden');
+                submitBtn.innerText = "Create Your Account";
+                document.getElementById('client-category').value = "E-Commerce Store";
             }
         }
 
-        // Handle Form Validation Demo
+        // Check if "Custom" option is selected to reveal typing field
+        window.checkCustomCategoryCondition = function(selectedValue) {
+            const customField = document.getElementById('client-custom-category-field');
+            if(selectedValue === 'custom') {
+                customField.classList.remove('hidden');
+                document.getElementById('client-custom-category').required = true;
+            } else {
+                customField.classList.add('hidden');
+                document.getElementById('client-custom-category').required = false;
+            }
+        }
+
+        // Handle Form Validation Demo & Form Object Compilations
         document.getElementById('client-auth-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('client-email').value;
@@ -380,24 +411,39 @@
             const errorTxt = document.getElementById('client-error-text');
 
             if(activeAuthMode === 'login') {
-                // Static Check for Demo login purpose
                 if(email === 'client@demo.com' && password === 'client2026') {
                     errorDiv.classList.add('hidden');
-                    alert("Verification successful! Redirecting to client queue pipeline dashboard...");
+                    alert("Verification successful! Redirecting to client dashboard...");
                 } else {
-                    errorTxt.innerText = "Invalid client record matrices. Try client@demo.com / client2026";
+                    errorTxt.innerText = "Invalid client records. Try client@demo.com / client2026";
                     errorDiv.classList.remove('hidden');
                 }
             } else {
-                // Signup Actions Matrix simulation
                 const name = document.getElementById('client-name').value;
-                const selectedTier = document.getElementById('client-tier').value;
-                if(!name) {
-                    errorTxt.innerText = "Full identity indexing parameter required.";
+                const whatsapp = document.getElementById('client-whatsapp').value;
+                let finalCategory = document.getElementById('client-category').value;
+                
+                if(finalCategory === 'custom') {
+                    finalCategory = document.getElementById('client-custom-category').value;
+                }
+
+                if(!name || !whatsapp || !finalCategory) {
+                    errorTxt.innerText = "All profile mapping parameters are highly required.";
                     errorDiv.classList.remove('hidden');
                     return;
                 }
-                alert(`Account successfully initialized for ${name} under ${selectedTier}! Push server infrastructure live to sync accounts registry loops.`);
+
+                // Database Sync Preview Schema Block
+                const userDataPayload = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    whatsapp: whatsapp,
+                    category: finalCategory
+                };
+
+                console.log("Ready for Database injection payload:", userDataPayload);
+                alert(`Account Created for ${name}!\nCategory locked: ${finalCategory}\n\nThis exact structural payload is ready to be stored in our DB matrix rows.`);
                 toggleClientModal(false);
             }
         });
@@ -443,7 +489,7 @@
                 const response = await fetch('/api/website-data');
                 if(response.ok) ACTIVE_GLOBAL_DATA = await response.json();
             } catch (e) {
-                console.warn("API router offline; loading fallback variables engine safely.");
+                console.warn("API router offline; loading fallback cache variables engine safely.");
             }
 
             const DATA = ACTIVE_GLOBAL_DATA;

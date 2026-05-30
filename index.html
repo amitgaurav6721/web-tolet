@@ -232,7 +232,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // FULL HARDCODED BACKUP MATRIX - KUCH BHI GAYAB NHI HOGA AB!
         const BACKUP_PREMIUM_DATA = {
             logo: "Web Tolet",
             promoBanner: "🎉 INTRODUCTORY OFFER: Use code PREMIUM26 to unlock immediate 20% flat savings!",
@@ -385,10 +384,16 @@
                                 toggleClientModal(false);
                             } else {
                                 alert("Signature verification mapping failed.");
+                                submitBtn.innerText = "Verify OTP & Proceed to Payment";
+                                submitBtn.disabled = false;
                             }
-                        } catch (err) { alert("Verification handshake endpoint error."); }
+                        } catch (err) { 
+                            alert("Verification handshake endpoint error."); 
+                            submitBtn.innerText = "Verify OTP & Proceed to Payment";
+                            submitBtn.disabled = false;
+                        }
                     },
-                    "modal": { "ondismiss": function(){ alert("Payment modal dismissed."); submitBtn.disabled = false; } }
+                    "modal": { "ondismiss": function(){ alert("Payment modal dismissed."); submitBtn.innerText = "Verify OTP & Proceed to Payment"; submitBtn.disabled = false; } }
                 };
 
                 const rzpWindowObj = new Razorpay(paymentOptions);
@@ -397,6 +402,7 @@
             } catch (err) {
                 errorTxt.innerText = err.message || "Order orchestration dropped.";
                 errorDiv.classList.remove('hidden');
+                submitBtn.innerText = "Verify OTP & Proceed to Payment";
                 submitBtn.disabled = false;
             }
         }
@@ -414,6 +420,7 @@
             } else {
                 if(!isOtpSentStage) {
                     submitBtn.innerText = "Processing..."; submitBtn.disabled = true;
+                    errorDiv.classList.add('hidden');
                     try {
                         const sendOtpResponse = await fetch('https://web-tolet.onrender.com/api/auth/send-otp', {
                             method: 'POST',
@@ -427,13 +434,27 @@
                             document.getElementById('client-otp-field').classList.remove('hidden');
                             document.getElementById('client-otp').required = true;
                             submitBtn.innerText = "Verify OTP & Proceed to Payment";
+                            alert(`A secure 6-digit verification code has been dispatched to ${email}!`);
                         } else {
-                            errorTxt.innerText = sendOtpData.message; errorDiv.classList.remove('hidden');
+                            errorTxt.innerText = sendOtpData.message || "Email setup configuration error."; 
+                            errorDiv.classList.remove('hidden');
                         }
-                    } catch(err) { errorTxt.innerText = "Connection failure route node."; errorDiv.classList.remove('hidden'); }
-                    finally { submitBtn.disabled = false; }
+                    } catch(err) { 
+                        errorTxt.innerText = "Connection failure: Backend is cold-starting or offline."; 
+                        errorDiv.classList.remove('hidden'); 
+                    } finally { 
+                        submitBtn.disabled = false; 
+                    }
                 } else {
                     const otpCode = document.getElementById('client-otp').value;
+                    if(otpCode.length !== 6) {
+                        errorTxt.innerText = "Enter full 6-digit verification code.";
+                        errorDiv.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    submitBtn.innerText = "Verifying OTP..."; submitBtn.disabled = true;
+                    errorDiv.classList.add('hidden');
                     try {
                         const verifyResponse = await fetch('https://web-tolet.onrender.com/api/auth/verify-otp', {
                             method: 'POST',
@@ -443,16 +464,30 @@
                         const verifyData = await verifyResponse.json();
 
                         if(verifyData.success) {
+                            let finalCategory = document.getElementById('client-category').value;
+                            if(finalCategory === 'custom') finalCategory = document.getElementById('client-custom-category').value;
+
                             const clientProfilePayload = {
                                 name: document.getElementById('client-name').value,
                                 email: email,
                                 whatsapp: document.getElementById('client-whatsapp').value,
+                                category: finalCategory,
                                 tier: cachedSelectedPlan ? cachedSelectedPlan.title : "Growth Engine Tier",
                                 amount: cachedSelectedPlan ? (cachedSelectedPlan.cost * 100) : 449900
                             };
                             await initializeRazorpayPaymentEngine(clientProfilePayload);
-                        } else { errorTxt.innerText = "Incorrect OTP."; errorDiv.classList.remove('hidden'); }
-                    } catch(err) { errorTxt.innerText = "Handshake route dropped."; errorDiv.classList.remove('hidden'); }
+                        } else { 
+                            errorTxt.innerText = verifyData.message || "Incorrect OTP code matrix."; 
+                            errorDiv.classList.remove('hidden'); 
+                            submitBtn.innerText = "Verify OTP & Proceed to Payment";
+                            submitBtn.disabled = false;
+                        }
+                    } catch(err) { 
+                        errorTxt.innerText = "Handshake verification route dropped."; 
+                        errorDiv.classList.remove('hidden'); 
+                        submitBtn.innerText = "Verify OTP & Proceed to Payment";
+                        submitBtn.disabled = false;
+                    }
                 }
             }
         });
@@ -554,14 +589,14 @@
         }
 
         async function initializeWebsite() {
-            renderDynamicDOMElements(); // Sabse pehle local complete data render hoga instantaneous!
+            renderDynamicDOMElements(); 
             try {
                 const response = await fetch('https://web-tolet.onrender.com/api/website-data');
                 if(response.ok) {
                     const serverData = await response.json();
                     if(serverData && serverData.categories && serverData.categories.length > 0) {
                         ACTIVE_GLOBAL_DATA = serverData;
-                        renderDynamicDOMElements(); // Agar server me naya data h, toh overwrite ho jayega smoothly
+                        renderDynamicDOMElements(); 
                     }
                 }
             } catch (e) { console.warn("Using high-fidelity local hardcoded matrix fallback node."); }

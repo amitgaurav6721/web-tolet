@@ -13,26 +13,22 @@
     <style>
         body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
         
-        /* Premium Background Gradient Text Animation */
         .gradient-text {
             background: linear-gradient(135deg, #00f5d4 0%, #3b82f6 50%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Glassmorphic Premium Backdrop Effects */
         .glass-card {
             background: rgba(20, 20, 28, 0.45);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Continuous Ambient Glowing Effects */
         .neon-glow-text {
             text-shadow: 0 0 12px rgba(6, 182, 212, 0.5), 0 0 25px rgba(168, 85, 247, 0.3);
         }
 
-        /* Smooth Custom Cubic Bezier Transition Curve */
         .premium-transition {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -40,33 +36,27 @@
 </head>
 <body class="bg-[#050508] text-gray-200 antialiased selection:bg-cyan-500 selection:text-black overflow-x-hidden">
 
-    <div id="promo-banner" class="bg-gradient-to-r from-purple-950/90 via-indigo-950 to-cyan-950/90 text-center py-2.5 text-xs font-medium tracking-wide border-b border-white/10 shadow-[0_1px_20px_rgba(168,85,247,0.15)]">
+    <div id="promo-banner" class="bg-gradient-to-r from-purple-900/80 via-indigo-950 to-cyan-950/90 text-center py-2.5 text-xs font-medium tracking-wide border-b border-white/10 shadow-[0_1px_20px_rgba(168,85,247,0.15)]">
         Loading core dynamic structural network configurations...
     </div>
 
     <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#050508]/75 border-b border-white/5 premium-transition">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
             <a href="#" class="flex items-center space-x-2 text-xl font-bold text-white tracking-tight group">
                 <span class="text-cyan-400 font-mono group-hover:rotate-12 premium-transition block">&lt;/&gt;</span>
                 <span id="logo-text" class="tracking-wide">Web Tolet</span>
             </a>
-
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
                 <a href="#" class="text-white hover:text-cyan-400 hover:scale-[1.03] premium-transition">Home</a>
                 <a href="#categories" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Categories</a>
                 <a href="#plans" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Plans</a>
                 <a href="#portfolio" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Portfolio</a>
-                
                 <button onclick="toggleAdminModal(true)" class="hover:text-purple-400 hover:scale-[1.03] flex items-center cursor-pointer premium-transition">
                     <i class="fa-solid fa-user-shield mr-1.5 text-xs"></i>Admin Portal
                 </button>
             </nav>
-
             <div>
-                <a href="#plans" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-white font-semibold text-sm px-6 py-2.5 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:shadow-[0_0_35px_rgba(6,182,212,0.5)] hover:scale-[1.03] premium-transition block">
-                    Get Started
-                </a>
+                <a href="#plans" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-white font-semibold text-sm px-6 py-2.5 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:shadow-[0_0_35px_rgba(6,182,212,0.5)] hover:scale-[1.03] premium-transition block">Get Started</a>
             </div>
         </div>
     </header>
@@ -79,7 +69,7 @@
             <div class="lg:col-span-7 space-y-6" data-aos="fade-right" data-aos-duration="1000">
                 <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider text-gray-300 uppercase backdrop-blur-md">
                     <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                    <span id="hero-tagline">Design & Dev Subscription</span>
+                    <span id="hero-tagline">Design & Dev Engine</span>
                 </div>
                 <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
                     Your Dedicated <br>
@@ -167,7 +157,7 @@
             <div class="mb-6">
                 <span class="text-xs font-semibold uppercase tracking-widest text-purple-400">Secure Access</span>
                 <h2 class="text-2xl font-bold text-white mt-1">Admin Portal Gateway</h2>
-                <p class="text-xs text-gray-400 mt-2">Enter verification credentials to initialize dynamic system routing configuration matrices.</p>
+                <p class="text-xs text-gray-400 mt-2">Enter credentials to seamlessly load dynamic panel configuration routers.</p>
             </div>
             <form id="homepage-login-form" class="space-y-4 text-left">
                 <div>
@@ -181,10 +171,23 @@
                 <div id="login-error-msg" class="text-xs text-rose-400 font-medium hidden flex items-center space-x-1.5 pt-1">
                     <i class="fa-solid fa-circle-exclaim"></i><span>Invalid configuration credentials. Retry!</span>
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white font-semibold text-sm py-3.5 rounded-xl shadow-lg hover:shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:scale-[1.01] premium-transition mt-2 cursor-pointer">
-                    Verify & Enter Dashboard
-                </button>
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white font-semibold text-sm py-3.5 rounded-xl shadow-lg hover:shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:scale-[1.01] premium-transition mt-2 cursor-pointer">Verify & Enter Dashboard</button>
             </form>
+        </div>
+    </div>
+
+    <div id="content-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/90 backdrop-blur-xl flex items-center justify-center opacity-0 pointer-events-none premium-transition p-4">
+        <div class="max-w-2xl w-full glass-card border border-white/10 rounded-3xl p-6 sm:p-10 relative transform scale-95 premium-transition shadow-[0_0_60px_rgba(6,182,212,0.15)]" id="content-modal-box">
+            <button onclick="toggleContentModal(false)" class="absolute top-6 right-6 text-gray-400 hover:text-white cursor-pointer premium-transition bg-white/5 w-8 h-8 rounded-full flex items-center justify-center border border-white/10">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+            <div class="text-left space-y-4">
+                <span id="modal-content-tag" class="text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-400/5 px-2.5 py-1 rounded-md border border-cyan-400/10 inline-block">Info Node</span>
+                <h2 id="modal-content-title" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Document Node Loading...</h2>
+                <div class="w-12 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full my-2"></div>
+                <div id="modal-content-body" class="text-sm text-gray-400 font-light leading-relaxed space-y-4 max-h-[60vh] overflow-y-auto pr-2 pt-2">
+                    </div>
+            </div>
         </div>
     </div>
 
@@ -194,27 +197,27 @@
             <div class="space-y-3 text-left">
                 <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Legal Framework</h4>
                 <ul class="space-y-2.5 text-xs">
-                    <li><a href="#" class="hover:text-cyan-400 premium-transition block">Refund Policy</a></li>
-                    <li><a href="#" class="hover:text-cyan-400 premium-transition block">Terms of Service</a></li>
-                    <li><a href="#" class="hover:text-cyan-400 premium-transition block">Privacy Framework</a></li>
+                    <li><button onclick="openDynamicModal('refund')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Refund Policy</button></li>
+                    <li><button onclick="openDynamicModal('terms')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Terms of Service</button></li>
+                    <li><button onclick="openDynamicModal('privacy')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Privacy Framework</button></li>
                 </ul>
             </div>
 
             <div class="space-y-3 text-left">
                 <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Business Structure</h4>
                 <ul class="space-y-2.5 text-xs">
-                    <li><a href="#" class="hover:text-purple-400 premium-transition block">Pricing Agreement</a></li>
-                    <li><a href="#" class="hover:text-purple-400 premium-transition block">SLA Guidelines</a></li>
-                    <li><a href="#" class="hover:text-purple-400 premium-transition block">Enterprise Scaling</a></li>
+                    <li><button onclick="openDynamicModal('pricing_agreement')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">Pricing Agreement</button></li>
+                    <li><button onclick="openDynamicModal('sla')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">SLA Guidelines</button></li>
+                    <li><button onclick="openDynamicModal('scaling')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">Enterprise Scaling</button></li>
                 </ul>
             </div>
 
             <div class="space-y-3 text-left">
                 <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Support Center</h4>
                 <ul class="space-y-2.5 text-xs">
-                    <li><a href="#" class="hover:text-blue-400 premium-transition block">Core FAQ Routing</a></li>
-                    <li><a href="#" class="hover:text-blue-400 premium-transition block">Contact Support</a></li>
-                    <li><a href="#" class="hover:text-blue-400 premium-transition block">Submit Design Ticket</a></li>
+                    <li><button onclick="openDynamicModal('faq')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Core FAQ Routing</button></li>
+                    <li><button onclick="openDynamicModal('contact')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Contact Support</button></li>
+                    <li><button onclick="openDynamicModal('ticket')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Submit Design Ticket</button></li>
                 </ul>
             </div>
 
@@ -228,7 +231,6 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center">
             <p id="footer-copy" class="text-xs font-light">© 2026 Web Tolet Studio Engine. All rights reserved.</p>
-            
             <div class="text-xs font-medium tracking-wide">
                 <span class="text-gray-400">Designed by</span>
                 <span class="font-bold gradient-text neon-glow-text pl-1 select-none animate-pulse">Amit Gaurav</span>
@@ -238,7 +240,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // BACKUP COMPREHENSIVE STRUCTURAL ENGINE STORAGE SCHEMAS
+        // BACKUP MATRIX COMPREHENSIVE DATA STORAGE SCHEMAS (Editable from Admin API Server node)
         const BACKUP_PREMIUM_DATA = {
             logo: "Web Tolet",
             promoBanner: "🎉 INTRODUCTORY OFFER: Use code PREMIUM26 to unlock immediate 20% flat savings on design queues!",
@@ -274,8 +276,22 @@
             testimonials: [
                 { name: "Marcus Vance", company: "Peak Fitness Executive", text: "The architectural depth of the layouts transformed our marketing conversion loops. A true enterprise design powerhouse.", rating: 5 },
                 { name: "Alina Kross", company: "Aurora AI Product Lead", text: "Incredible delivery velocities. Our design asset overhead vanished completely under this structured setup.", rating: 5 }
-            ]
+            ],
+            // ACTIVE POOL DOCUMENT DATA (Editable via Admin Panel Control Form)
+            documents: {
+                refund: { tag: "Legal node", title: "Refund Policy matrix", body: "<p>We hold high confidence in our asset delivery speeds. If you wish to terminate processing operations, subscription refund requests can be cleanly raised within <b>7 business operating days</b> of your initial transaction cycle. If design asset queues have already entered standard active queue execution configurations, proportional operational deductions apply smoothly.</p>" },
+                terms: { tag: "Legal node", title: "Terms of Service Agreement", body: "<p>By active subscription initialization configurations under Web Tolet, you grant absolute clear development authorization schemas. All source UI vector components, structural layout cards, and compiled design delivery assets turn entirely into your <b>absolute personal commercial property</b> right upon final verification milestones.</p>" },
+                privacy: { tag: "Data protection", title: "Privacy Framework Matrix", body: "<p>Your project pipeline descriptions, brand guidelines, secure login matrices, and source media buffers remain tightly secured under end-to-end sandbox storage layers. No brand configurations run leaks inside public structural environments under any operational circumstances.</p>" },
+                pricing_agreement: { tag: "Commercials", title: "Pricing Framework Agreement", body: "<p>Subscription rates are strictly locked at initialization configurations and remain highly stable. Any modification adjustments in active design queues or duration toggle levels recalculate limits dynamically on next pipeline clearing dates seamlessly.</p>" },
+                sla: { tag: "Operations", title: "SLA Production Guidelines", body: "<p>Our standard response metrics secure code asset deployment pipelines inside <b>24 to 48 hours</b> under clean processing flows. Priority tracks instantly pull engineers forward for multi-product queue acceleration cycles automatically.</p>" },
+                scaling: { tag: "Enterprise", title: "Enterprise Scaling Nodes", body: "<p>For organizations maintaining extensive brand development loops, our engine supports scaling structures up to <b>10 concurrent active pipelines</b>. Custom setups link directly via specialized root engineering channels seamlessly.</p>" },
+                faq: { tag: "Help Node", title: "Core FAQ Routing", body: "<div class='space-y-3'><div><b>Q: How do design request updates process?</b><p class='text-gray-500 text-xs mt-0.5'>A: Drop your specs via dashboard interface. Our asset queue picks them up instantly and delivers them one by one smoothly.</p></div><div><b>Q: Can I pause my active subscription level?</b><p class='text-gray-500 text-xs mt-0.5'>A: Yes! Pausing queues locks your remaining billing periods until next operational requirements demand activation.</p></div></div>" },
+                contact: { tag: "Support", title: "Contact Engineering Support", body: "<p>Need direct core communication routing? Drop lines across to our framework managers directly at <b>support@webtolet.com</b>. Active technical diagnostics respond within 2-4 standard operational hours seamlessly.</p>" },
+                ticket: { tag: "Ticket Sync", title: "Submit Active Design Ticket", body: "<p>To register structural issues regarding asset layers, secure authorization keys from your primary account routing matrix, and trigger direct high-priority developer support loops safely.</p>" }
+            }
         };
+
+        let ACTIVE_GLOBAL_DATA = BACKUP_PREMIUM_DATA;
 
         // Modal Presentation Display Controllers
         window.toggleAdminModal = function(isOpen) {
@@ -283,36 +299,57 @@
             const content = document.getElementById('modal-content');
             if(isOpen) {
                 modal.classList.remove('opacity-0', 'pointer-events-none');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
+                content.classList.remove('scale-95'); content.classList.add('scale-100');
             } else {
                 modal.classList.add('opacity-0', 'pointer-events-none');
-                content.classList.remove('scale-100');
-                content.classList.add('scale-95');
+                content.classList.remove('scale-100'); content.classList.add('scale-95');
                 document.getElementById('login-error-msg').classList.add('hidden');
             }
         }
 
-        async function initializeWebsite() {
-            let DATA = BACKUP_PREMIUM_DATA;
+        // Active Policy Overlays Presentation Controllers
+        window.toggleContentModal = function(isOpen) {
+            const modal = document.getElementById('content-modal');
+            const box = document.getElementById('content-modal-box');
+            if(isOpen) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                box.classList.remove('scale-95'); box.classList.add('scale-100');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                box.classList.remove('scale-100'); box.classList.add('scale-95');
+            }
+        }
 
+        // Dynamic Modal Injector
+        window.openDynamicModal = function(docKey) {
+            const doc = ACTIVE_GLOBAL_DATA.documents[docKey];
+            if(doc) {
+                document.getElementById('modal-content-tag').innerText = doc.tag;
+                document.getElementById('modal-content-title').innerText = doc.title;
+                document.getElementById('modal-content-body').innerHTML = doc.body;
+                toggleContentModal(true);
+            }
+        }
+
+        async function initializeWebsite() {
             try {
                 const response = await fetch('/api/website-data');
                 if(response.ok) {
-                    DATA = await response.json();
+                    ACTIVE_GLOBAL_DATA = await response.json();
                 }
             } catch (e) {
-                console.warn("Dynamic API routing structural channels sleeping; loading engine directly.");
+                console.warn("API router offline; reading layout variables directly from local engine cache safely.");
             }
 
-            // Bind Basic Injections
+            const DATA = ACTIVE_GLOBAL_DATA;
+
+            // Injections
             document.getElementById('promo-banner').innerText = DATA.promoBanner;
             document.getElementById('logo-text').innerText = DATA.logo;
             document.getElementById('hero-tagline').innerText = DATA.hero.tagline;
             if(DATA.hero.title) document.getElementById('hero-title').innerHTML = DATA.hero.title;
             document.getElementById('hero-desc').innerText = DATA.hero.desc;
 
-            // Render Operational Metrics Matrix
             document.getElementById('hero-metrics').innerHTML = DATA.hero.metrics.map(m => `
                 <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center hover:border-cyan-400/20 shadow-md hover:shadow-cyan-400/5 hover:-translate-y-0.5 premium-transition">
                     <i class="fa-solid ${m.icon} text-cyan-400 mb-1 block text-base animate-pulse"></i>
@@ -321,7 +358,6 @@
                 </div>
             `).join('');
 
-            // Render Dynamic Categories Layout Loop with Scale and Gradient Wave Hovers
             document.getElementById('categories-grid').innerHTML = DATA.categories.map(c => `
                 <div class="group glass-card border border-white/5 hover:border-cyan-400/40 rounded-2xl p-6 text-left shadow-lg hover:shadow-[0_10px_30px_rgba(0,245,212,0.05)] transform hover:-translate-y-1.5 premium-transition">
                     <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 text-lg mb-5 group-hover:bg-cyan-400 group-hover:text-black premium-transition">
@@ -332,7 +368,6 @@
                 </div>
             `).join('');
 
-            // Render Visual Portfolio Deliverable Showcase Grid
             document.getElementById('portfolio-grid').innerHTML = DATA.portfolio.map(p => `
                 <div class="group glass-card border border-white/5 rounded-2xl overflow-hidden shadow-lg hover:border-white/15 premium-transition">
                     <div class="aspect-video w-full overflow-hidden bg-gray-950 relative">
@@ -349,7 +384,6 @@
 
             let activeDurationId = DATA.durations.find(d => d.active)?.id || DATA.durations[0].id;
 
-            // Updated Layout Structure: /framework replaced completely with /monthly 
             window.renderPlansLayout = function() {
                 document.getElementById('pricing-grid').innerHTML = DATA.plans.map(p => `
                     <div class="relative glass-card border ${p.recommended ? 'border-purple-500 shadow-[0_0_40px_rgba(168,85,247,0.12)]' : 'border-white/5'} rounded-2xl p-8 flex flex-col justify-between hover:border-white/10 hover:shadow-2xl hover:-translate-y-1 transform premium-transition">
@@ -366,14 +400,11 @@
                                 ${p.antiFeatures && p.antiFeatures.length > 0 ? p.antiFeatures.map(af => `<li class="flex items-start space-x-2.5 text-gray-600 line-through"><i class="fa-solid fa-square-xmark mt-0.5 text-xs"></i><span>${af}</span></li>`).join('') : ''}
                             </ul>
                         </div>
-                        <button class="w-full mt-8 py-3.5 rounded-xl font-bold text-sm transform active:scale-[0.99] premium-transition cursor-pointer ${p.recommended ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-purple-500/10 hover:shadow-purple-500/25' : 'bg-white/5 text-gray-200 hover:bg-white/10 border border-white/5'}">
-                            Subscribe Plan
-                        </button>
+                        <button class="w-full mt-8 py-3.5 rounded-xl font-bold text-sm transform active:scale-[0.99] premium-transition cursor-pointer ${p.recommended ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-purple-500/10 hover:shadow-purple-500/25' : 'bg-white/5 text-gray-200 hover:bg-white/10 border border-white/5'}">Subscribe Plan</button>
                     </div>
                 `).join('');
             };
 
-            // Render Tab Durations UI Options Loops
             document.getElementById('duration-toggles').innerHTML = DATA.durations.map(d => `
                 <button onclick="activeDurationId='${d.id}'; renderPlansLayout(); syncToggleTabsStyles(this)" class="tab-toggle-btn px-5 py-2 rounded-xl text-xs font-semibold premium-transition cursor-pointer ${d.id === activeDurationId ? 'bg-white/10 text-white shadow border border-white/10' : 'text-gray-400 hover:text-gray-200'}">${d.label}</button>
             `).join('');
@@ -384,7 +415,6 @@
                 targetEl.classList.add('bg-white/10', 'text-white', 'shadow', 'border', 'border-white/10');
             };
 
-            // Render Testimonial Blocks Row Grid Loops
             document.getElementById('testimonials-grid').innerHTML = DATA.testimonials.map(t => `
                 <div class="glass-card border border-white/5 rounded-2xl p-6 text-left shadow-md hover:border-white/10 premium-transition">
                     <div class="flex text-amber-400 space-x-1 mb-4">${Array(t.rating).fill('<i class="fa-solid fa-star text-xs"></i>').join('')}</div>
@@ -400,7 +430,6 @@
             AOS.init({ once: true });
         }
 
-        // Intercept Authorization Login Operations Forms
         document.getElementById('homepage-login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const userVal = document.getElementById('login-username').value;
@@ -415,6 +444,10 @@
             }
         });
 
+        // Close details content modal when user clicks on background overlay safely
+        document.getElementById('content-modal').addEventListener('click', function(e) {
+            if(e.target === this) toggleContentModal(false);
+        });
         document.getElementById('admin-modal').addEventListener('click', function(e) {
             if(e.target === this) toggleAdminModal(false);
         });

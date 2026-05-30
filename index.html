@@ -353,7 +353,7 @@
 
         let ACTIVE_GLOBAL_DATA = BACKUP_PREMIUM_DATA;
         let activeAuthMode = 'login'; 
-        let isOtpSentStage = false; // State track for Gmail OTP verification step
+        let isOtpSentStage = false; 
 
         // Client Modal Controller
         window.toggleClientModal = function(isOpen, mode = 'login') {
@@ -377,11 +377,12 @@
             document.getElementById('client-profile-fields').classList.remove('hidden');
             document.getElementById('client-otp-field').classList.add('hidden');
             document.getElementById('client-otp').required = false;
+            document.getElementById('client-submit-btn').innerText = activeAuthMode === 'login' ? "Sign In to Portal" : "Send Verification OTP";
         }
 
         // Switch Tabs inside Client Auth Modal
         window.switchClientAuthTab = function(mode) {
-            if(isOtpSentStage) return; // Lock switching if user is in OTP verification process
+            if(isOtpSentStage) return; 
             
             activeAuthMode = mode;
             const loginTab = document.getElementById('tab-client-login');
@@ -401,7 +402,7 @@
                 nameField.classList.add('hidden');
                 whatsappField.classList.add('hidden');
                 catField.classList.add('hidden');
-                submitBtn.innerText = "Sign In to Client Portal";
+                submitBtn.innerText = "Sign In to Portal";
             } else {
                 signupTab.className = "w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition";
                 loginTab.className = "w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition";
@@ -425,13 +426,14 @@
             }
         }
 
-        // Handle Form Validation & Multi-stage Gmail OTP Flow verification
-        document.getElementById('client-auth-form').addEventListener('submit', function(e) {
+        // Handle Form Validation & Multi-stage Gmail OTP Flow verification connected to Render Backend URL
+        document.getElementById('client-auth-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('client-email').value;
             const password = document.getElementById('client-password').value;
             const errorDiv = document.getElementById('client-auth-error');
             const errorTxt = document.getElementById('client-error-text');
+            const submitBtn = document.getElementById('client-submit-btn');
 
             if(activeAuthMode === 'login') {
                 if(email === 'client@demo.com' && password === 'client2026') {
@@ -442,9 +444,8 @@
                     errorDiv.classList.remove('hidden');
                 }
             } else {
-                // SIGNUP MODE FLOW
+                // SIGNUP MODE LIVE CONNECTED TO RENDER SERVER
                 if(!isOtpSentStage) {
-                    // STAGE 1: Profile info verification and generating OTP trigger
                     const name = document.getElementById('client-name').value;
                     const whatsapp = document.getElementById('client-whatsapp').value;
                     let finalCategory = document.getElementById('client-category').value;
@@ -460,42 +461,81 @@
                     }
 
                     errorDiv.classList.add('hidden');
+                    submitBtn.innerText = "Processing Queue...";
+                    submitBtn.disabled = true;
                     
-                    // Transition to OTP Code State beautifully
-                    isOtpSentStage = true;
-                    document.getElementById('client-profile-fields').classList.add('hidden');
-                    document.getElementById('client-otp-field').classList.remove('hidden');
-                    document.getElementById('client-otp').required = true;
-                    document.getElementById('client-submit-btn').innerText = "Verify OTP & Create Account";
-                    
-                    alert(`Demo trigger: A secure 6-digit verification code has been dispatched to ${email}!`);
-                } else {
-                    // STAGE 2: Code confirmation mapping match
-                    const otpCode = document.getElementById('client-otp').value;
-                    
-                    // Demo fallback static token simulation check (e.g. 123456)
-                    if(otpCode === '123456' || otpCode.length === 6) {
-                        errorDiv.classList.add('hidden');
+                    try {
+                        // LIVE ENDPOINT 1: Triggers real nodemailer code creation over Render network mapping
+                        const sendOtpResponse = await fetch('https://web-tolet.onrender.com/api/auth/send-otp', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: email })
+                        });
                         
-                        let finalCategory = document.getElementById('client-category').value;
-                        if(finalCategory === 'custom') finalCategory = document.getElementById('client-custom-category').value;
-
-                        // Target configuration schema blueprint for database routing
-                        const userDataPayload = {
-                            name: document.getElementById('client-name').value,
-                            email: email,
-                            password: password,
-                            whatsapp: whatsapp = document.getElementById('client-whatsapp').value,
-                            category: finalCategory,
-                            isVerified: true
-                        };
-
-                        console.log("Verified entry block payload object:", userDataPayload);
-                        alert(`Gmail Verified Successfully! Account indexing completed for ${userDataPayload.name}.`);
-                        toggleClientModal(false);
-                    } else {
-                        errorTxt.innerText = "Incorrect OTP code. Enter 6 characters to clear verification loop blocks.";
+                        const sendOtpData = await sendOtpResponse.json();
+                        
+                        if(sendOtpData.success) {
+                            isOtpSentStage = true;
+                            document.getElementById('client-profile-fields').classList.add('hidden');
+                            document.getElementById('client-otp-field').classList.remove('hidden');
+                            document.getElementById('client-otp').required = true;
+                            submitBtn.innerText = "Verify OTP & Create Account";
+                            alert(`A secure 6-digit verification code has been dispatched to ${email}!`);
+                        } else {
+                            errorTxt.innerText = sendOtpData.message || "Failed to dispatch verification email node.";
+                            errorDiv.classList.remove('hidden');
+                            submitBtn.innerText = "Send Verification OTP";
+                        }
+                    } catch(err) {
+                        errorTxt.innerText = "Connection block failure. Ensure Render backend architecture is active.";
                         errorDiv.classList.remove('hidden');
+                        submitBtn.innerText = "Send Verification OTP";
+                    } finally {
+                        submitBtn.disabled = false;
+                    }
+                } else {
+                    const otpCode = document.getElementById('client-otp').value;
+                    if(otpCode.length !== 6) {
+                        errorTxt.innerText = "Enter full 6-digit configuration code array matrix nodes.";
+                        errorDiv.classList.remove('hidden');
+                        return;
+                    }
+
+                    submitBtn.innerText = "Verifying Credentials...";
+                    submitBtn.disabled = true;
+
+                    let finalCategory = document.getElementById('client-category').value;
+                    if(finalCategory === 'custom') finalCategory = document.getElementById('client-custom-category').value;
+
+                    try {
+                        // LIVE ENDPOINT 2: Verifies dynamic temporary map logs and pushes validated data object payload rows to data.json DB
+                        const verifyResponse = await fetch('https://web-tolet.onrender.com/api/auth/verify-otp', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                email: email,
+                                otp: otpCode,
+                                name: document.getElementById('client-name').value,
+                                whatsapp: document.getElementById('client-whatsapp').value,
+                                category: finalCategory
+                            })
+                        });
+
+                        const verifyData = await verifyResponse.json();
+
+                        if(verifyData.success) {
+                            errorDiv.classList.add('hidden');
+                            alert(`Gmail Verified Successfully! Account indexing completed for ${document.getElementById('client-name').value}.`);
+                            toggleClientModal(false);
+                        } else {
+                            errorTxt.innerText = verifyData.message || "Incorrect OTP code matrix configuration setup.";
+                            errorDiv.className = "text-xs text-rose-400 font-medium flex items-center space-x-1.5 pt-1";
+                        }
+                    } catch(err) {
+                        errorTxt.innerText = "Verification endpoint sync failure. Check database parameters logs.";
+                        errorDiv.classList.remove('hidden');
+                    } finally {
+                        submitBtn.disabled = false;
                     }
                 }
             }
@@ -539,7 +579,8 @@
 
         async function initializeWebsite() {
             try {
-                const response = await fetch('/api/website-data');
+                // LIVE ENDPOINT 3: Pulls current dynamic structural layout configurations array matrix from Render JSON DB securely
+                const response = await fetch('https://web-tolet.onrender.com/api/website-data');
                 if(response.ok) ACTIVE_GLOBAL_DATA = await response.json();
             } catch (e) {
                 console.warn("API network channel resting; launching cache parameters engine runtime successfully.");
@@ -643,7 +684,7 @@
                 errorArea.classList.add('hidden');
                 window.location.href = '/admin.html';
             } else {
-                errorArea.classList.remove('hidden');
+                errorArea.className = "text-xs text-rose-400 font-medium flex items-center space-x-1.5 pt-1";
             }
         });
 

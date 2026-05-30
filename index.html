@@ -20,7 +20,7 @@
         .glass-card {
             background: rgba(20, 20, 28, 0.6);
             backdrop-filter: blur(14px);
-            border: 1px border rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
@@ -90,8 +90,7 @@
                         <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Tech Dashboard Visual" class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#121218] via-transparent to-transparent"></div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 pt-2" id="hero-metrics">
-                        </div>
+                    <div class="grid grid-cols-2 gap-4 pt-2" id="hero-metrics"></div>
                 </div>
             </div>
         </div>
@@ -148,7 +147,6 @@
                 <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Admin Portal Gateway</h2>
                 <p class="text-xs text-gray-400 mt-2">Enter dashboard credentials to modify live sections layout variables.</p>
             </div>
-            
             <form id="homepage-login-form" class="glass-card border border-white/10 rounded-2xl p-6 text-left space-y-4 shadow-2xl">
                 <div>
                     <label class="block text-xs font-medium text-gray-400 mb-1.5">Username</label>
@@ -170,14 +168,13 @@
 
     <footer class="border-t border-white/5 bg-[#040407] py-12 text-gray-500 text-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p id="footer-copy">© 2026 Web Tolet. All rights reserved.</p>
+            <p id="footer-copy">© 2026 Web Tolet Studio Engine. All rights reserved.</p>
             <div class="flex space-x-6 text-gray-400" id="footer-links"></div>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // PREMIUM ROBUST DATA FALLBACK: API fail hone par bhi structure premium rahega!
         const BACKUP_PREMIUM_DATA = {
             logo: "Web Tolet",
             promoBanner: "🎉 INTRODUCTORY OFFER: Use code PREMIUM26 to unlock immediate 20% flat savings on design queues!",
@@ -224,17 +221,14 @@
             let DATA = BACKUP_PREMIUM_DATA;
 
             try {
-                // Try fetching live data from Node API
                 const response = await fetch('/api/website-data');
                 if(response.ok) {
                     DATA = await response.json();
-                    console.log("Successfully loaded live server-side data configuration!");
                 }
             } catch (e) {
-                console.warn("Backend dynamic fetch sleeping; running on robust premium layout engine runtime successfully.");
+                console.warn("Running on robust premium layout engine runtime successfully.");
             }
 
-            // Render Core Elements
             document.getElementById('promo-banner').innerText = DATA.promoBanner;
             document.getElementById('logo-text').innerText = DATA.logo;
             document.getElementById('hero-tagline').innerText = DATA.hero.tagline;
@@ -242,7 +236,6 @@
             document.getElementById('hero-desc').innerText = DATA.hero.desc;
             document.getElementById('footer-copy').innerText = DATA.footer.copy;
 
-            // Render Metrics Block
             document.getElementById('hero-metrics').innerHTML = DATA.hero.metrics.map(m => `
                 <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center hover:border-cyan-400/20 transition-all duration-300">
                     <i class="fa-solid ${m.icon} text-cyan-400 mb-1 block text-base"></i>
@@ -251,8 +244,7 @@
                 </div>
             `).join('');
 
-            // Render Categories Cards Grid
-            document.getElementById('categories-grid').innerHTML = DATA.categories.map((c, idx) => `
+            document.getElementById('categories-grid').innerHTML = DATA.categories.map(c => `
                 <div class="group glass-card border border-white/5 hover:border-cyan-400/30 rounded-2xl p-6 text-left transition-all duration-300 hover:-translate-y-1.5 shadow-lg">
                     <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 text-lg mb-5 group-hover:bg-cyan-400 group-hover:text-black transition-all duration-300">
                         <i class="fa-solid ${c.icon || 'fa-cubes'}"></i>
@@ -262,7 +254,6 @@
                 </div>
             `).join('');
 
-            // Render Portfolio Deliverables Visual Grid
             document.getElementById('portfolio-grid').innerHTML = DATA.portfolio.map(p => `
                 <div class="group glass-card border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:border-white/10 shadow-lg">
                     <div class="aspect-video w-full overflow-hidden bg-gray-950 relative">
@@ -277,7 +268,6 @@
                 </div>
             `).join('');
 
-            // Handle Pricing Flows Custom Core Controls
             let activeDurationId = DATA.durations.find(d => d.active)?.id || DATA.durations[0].id;
 
             window.renderPlansLayout = function() {
@@ -293,7 +283,7 @@
                             </div>
                             <ul class="space-y-3.5 text-sm text-left pt-4 border-t border-white/5">
                                 ${p.features.map(f => `<li class="flex items-start space-x-2.5 text-gray-300"><i class="fa-solid fa-square-check text-emerald-400 mt-0.5 text-xs"></i><span>${f}</span></li>`).join('')}
-                                ${p.antiFeatures ? p.antiFeatures.map(af => `<li class="flex items-start space-x-2.5 text-gray-600 line-through"><i class="fa-solid fa-square-xmark mt-0.5 text-xs"></i><span>${af}</span></li>`).join('')} : ''}
+                                ${p.antiFeatures && p.antiFeatures.length > 0 ? p.antiFeatures.map(af => `<li class="flex items-start space-x-2.5 text-gray-600 line-through"><i class="fa-solid fa-square-xmark mt-0.5 text-xs"></i><span>${af}</span></li>`).join('') : ''}
                             </ul>
                         </div>
                         <button class="w-full mt-8 py-3.5 rounded-xl font-bold text-sm transition-all ${p.recommended ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-lg' : 'bg-white/5 text-gray-200 hover:bg-white/10 border border-white/5'}">Subscribe Framework</button>
@@ -301,7 +291,6 @@
                 `).join('');
             };
 
-            // Render Tabs Controllers UI
             document.getElementById('duration-toggles').innerHTML = DATA.durations.map(d => `
                 <button onclick="activeDurationId='${d.id}'; renderPlansLayout(); syncToggleTabsStyles(this)" class="tab-toggle-btn px-5 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ${d.id === activeDurationId ? 'bg-white/10 text-white shadow shadow-white/5 border border-white/10' : 'text-gray-400 hover:text-gray-200'}">${d.label}</button>
             `).join('');
@@ -312,7 +301,6 @@
                 targetEl.classList.add('bg-white/10', 'text-white', 'shadow', 'border', 'border-white/10');
             };
 
-            // Render Testimonials List Grid Flows
             document.getElementById('testimonials-grid').innerHTML = DATA.testimonials.map(t => `
                 <div class="glass-card border border-white/5 rounded-2xl p-6 text-left shadow-md">
                     <div class="flex text-amber-400 space-x-1 mb-4">${Array(t.rating).fill('<i class="fa-solid fa-star text-xs"></i>').join('')}</div>
@@ -324,17 +312,12 @@
                 </div>
             `).join('');
 
-            // Render Footer Links Framework Row
             document.getElementById('footer-links').innerHTML = DATA.footer.links.map(l => `<a href="${l.url}" class="hover:text-white transition-colors text-xs font-medium tracking-wide">${l.name}</a>`).join('');
 
-            // Initial Trigger execution kickoffs
             renderPlansLayout();
-            
-            // Re-trigger global AOS library settings
             AOS.init({ once: true });
         }
 
-        // Login Handler Validations Flows
         document.getElementById('homepage-login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const userVal = document.getElementById('login-username').value;

@@ -34,13 +34,13 @@
         }
     </style>
 </head>
-<body class="bg-[#050508] text-gray-200 antialiased selection:bg-cyan-500 selection:text-black overflow-x-hidden">
+<body class="bg-[#06060a] text-gray-200 antialiased selection:bg-cyan-500 selection:text-black overflow-x-hidden">
 
     <div id="promo-banner" class="bg-gradient-to-r from-purple-900/80 via-indigo-950 to-cyan-950/90 text-center py-2.5 text-xs font-medium tracking-wide border-b border-white/10 shadow-[0_1px_20px_rgba(168,85,247,0.15)]">
         Loading core dynamic structural network configurations...
     </div>
 
-    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#050508]/75 border-b border-white/5 premium-transition">
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#06060a]/75 border-b border-white/5 premium-transition">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center space-x-2 text-xl font-bold text-white tracking-tight group">
                 <span class="text-cyan-400 font-mono group-hover:rotate-12 premium-transition block">&lt;/&gt;</span>
@@ -51,6 +51,11 @@
                 <a href="#categories" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Categories</a>
                 <a href="#plans" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Plans</a>
                 <a href="#portfolio" class="hover:text-cyan-400 hover:scale-[1.03] premium-transition">Portfolio</a>
+                
+                <button onclick="toggleClientModal(true, 'login')" class="hover:text-cyan-400 hover:scale-[1.03] flex items-center cursor-pointer premium-transition">
+                    <i class="fa-solid fa-right-to-bracket mr-1.5 text-xs"></i>Client Portal
+                </button>
+
                 <button onclick="toggleAdminModal(true)" class="hover:text-purple-400 hover:scale-[1.03] flex items-center cursor-pointer premium-transition">
                     <i class="fa-solid fa-user-shield mr-1.5 text-xs"></i>Admin Portal
                 </button>
@@ -149,15 +154,58 @@
         </div>
     </section>
 
+    <div id="client-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-xl flex items-center justify-center opacity-0 pointer-events-none premium-transition p-4">
+        <div class="max-w-md w-full glass-card border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative transform scale-95 premium-transition shadow-[0_0_50px_rgba(6,182,212,0.15)]" id="client-modal-content">
+            <button onclick="toggleClientModal(false)" class="absolute top-5 right-5 text-gray-500 hover:text-white cursor-pointer premium-transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <div class="flex border-b border-white/5 mb-6 text-sm font-medium">
+                <button onclick="switchClientAuthTab('login')" id="tab-client-login" class="w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition">Client Sign In</button>
+                <button onclick="switchClientAuthTab('signup')" id="tab-client-signup" class="w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition">Create Account</button>
+            </div>
+
+            <form id="client-auth-form" class="space-y-4 text-left">
+                <div id="client-name-field" class="hidden">
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">Full Name</label>
+                    <input type="text" id="client-name" placeholder="Amit Gaurav" class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">Email Address</label>
+                    <input type="email" id="client-email" placeholder="name@company.com" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">Password</label>
+                    <input type="password" id="client-password" placeholder="••••••••" required class="w-full bg-white/[0.03] border border-white/10 rounded-xl p-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-cyan-400 premium-transition">
+                </div>
+
+                <div id="client-tier-field" class="hidden">
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">Select Preferred Subscription Tier</label>
+                    <select id="client-tier" class="w-full bg-[#121218] border border-white/10 rounded-xl p-3 text-sm text-gray-300 focus:outline-none focus:border-cyan-400 premium-transition">
+                        <option value="Basic Tier">Basic Tier Plan</option>
+                        <option value="Growth Engine Tier" selected>Growth Engine Tier (Recommended)</option>
+                        <option value="Enterprise Tier">Enterprise Tier Studio</option>
+                    </select>
+                </div>
+
+                <div id="client-auth-error" class="text-xs text-rose-400 font-medium hidden flex items-center space-x-1.5 pt-1">
+                    <i class="fa-solid fa-circle-exclaim"></i><span id="client-error-text">Authentication node alert.</span>
+                </div>
+
+                <button type="submit" id="client-submit-btn" class="w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-white font-semibold text-sm py-3.5 rounded-xl shadow-lg hover:shadow-[0_0_25px_rgba(6,182,212,0.3)] hover:scale-[1.01] premium-transition mt-2 cursor-pointer">
+                    Sign In to Portal
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div id="admin-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-xl flex items-center justify-center opacity-0 pointer-events-none premium-transition p-4">
         <div class="max-w-md w-full glass-card border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative transform scale-95 premium-transition shadow-[0_0_50px_rgba(168,85,247,0.15)]" id="modal-content">
-            <button onclick="toggleAdminModal(false)" class="absolute top-5 right-5 text-gray-500 hover:text-white cursor-pointer premium-transition">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
+            <button onclick="toggleAdminModal(false)" class="absolute top-5 right-5 text-gray-500 hover:text-white cursor-pointer premium-transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <div class="mb-6">
                 <span class="text-xs font-semibold uppercase tracking-widest text-purple-400">Secure Access</span>
                 <h2 class="text-2xl font-bold text-white mt-1">Admin Portal Gateway</h2>
-                <p class="text-xs text-gray-400 mt-2">Enter credentials to seamlessly load dynamic panel configuration routers.</p>
+                <p class="text-xs text-gray-400 mt-2">Enter verification credentials to initialize dynamic system routing configuration matrices.</p>
             </div>
             <form id="homepage-login-form" class="space-y-4 text-left">
                 <div>
@@ -178,22 +226,18 @@
 
     <div id="content-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/90 backdrop-blur-xl flex items-center justify-center opacity-0 pointer-events-none premium-transition p-4">
         <div class="max-w-2xl w-full glass-card border border-white/10 rounded-3xl p-6 sm:p-10 relative transform scale-95 premium-transition shadow-[0_0_60px_rgba(6,182,212,0.15)]" id="content-modal-box">
-            <button onclick="toggleContentModal(false)" class="absolute top-6 right-6 text-gray-400 hover:text-white cursor-pointer premium-transition bg-white/5 w-8 h-8 rounded-full flex items-center justify-center border border-white/10">
-                <i class="fa-solid fa-xmark text-sm"></i>
-            </button>
+            <button onclick="toggleContentModal(false)" class="absolute top-6 right-6 text-gray-400 hover:text-white cursor-pointer premium-transition bg-white/5 w-8 h-8 rounded-full flex items-center justify-center border border-white/10"><i class="fa-solid fa-xmark text-sm"></i></button>
             <div class="text-left space-y-4">
                 <span id="modal-content-tag" class="text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-400/5 px-2.5 py-1 rounded-md border border-cyan-400/10 inline-block">Info Node</span>
                 <h2 id="modal-content-title" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Document Node Loading...</h2>
                 <div class="w-12 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full my-2"></div>
-                <div id="modal-content-body" class="text-sm text-gray-400 font-light leading-relaxed space-y-4 max-h-[60vh] overflow-y-auto pr-2 pt-2">
-                    </div>
+                <div id="modal-content-body" class="text-sm text-gray-400 font-light leading-relaxed space-y-4 max-h-[60vh] overflow-y-auto pr-2 pt-2"></div>
             </div>
         </div>
     </div>
 
     <footer class="border-t border-white/5 bg-[#030305] pt-16 pb-8 text-gray-500 text-sm relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 border-b border-white/5 pb-12">
-            
             <div class="space-y-3 text-left">
                 <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Legal Framework</h4>
                 <ul class="space-y-2.5 text-xs">
@@ -202,7 +246,6 @@
                     <li><button onclick="openDynamicModal('privacy')" class="hover:text-cyan-400 cursor-pointer premium-transition block text-left">Privacy Framework</button></li>
                 </ul>
             </div>
-
             <div class="space-y-3 text-left">
                 <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Business Structure</h4>
                 <ul class="space-y-2.5 text-xs">
@@ -211,7 +254,6 @@
                     <li><button onclick="openDynamicModal('scaling')" class="hover:text-purple-400 cursor-pointer premium-transition block text-left">Enterprise Scaling</button></li>
                 </ul>
             </div>
-
             <div class="space-y-3 text-left">
                 <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Support Center</h4>
                 <ul class="space-y-2.5 text-xs">
@@ -220,15 +262,11 @@
                     <li><button onclick="openDynamicModal('ticket')" class="hover:text-blue-400 cursor-pointer premium-transition block text-left">Submit Design Ticket</button></li>
                 </ul>
             </div>
-
             <div class="space-y-3 text-left">
                 <h4 class="text-xs font-bold uppercase tracking-widest text-gray-300">Web Tolet Engine</h4>
-                <p class="text-xs text-gray-500 font-light leading-relaxed">
-                    High-velocity multi-tier subscription network optimizing modern production layers flawlessly.
-                </p>
+                <p class="text-xs text-gray-500 font-light leading-relaxed">High-velocity multi-tier subscription network optimizing modern production layers flawlessly.</p>
             </div>
         </div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center">
             <p id="footer-copy" class="text-xs font-light">© 2026 Web Tolet Studio Engine. All rights reserved.</p>
             <div class="text-xs font-medium tracking-wide">
@@ -240,7 +278,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // BACKUP MATRIX COMPREHENSIVE DATA STORAGE SCHEMAS (Editable from Admin API Server node)
         const BACKUP_PREMIUM_DATA = {
             logo: "Web Tolet",
             promoBanner: "🎉 INTRODUCTORY OFFER: Use code PREMIUM26 to unlock immediate 20% flat savings on design queues!",
@@ -277,23 +314,95 @@
                 { name: "Marcus Vance", company: "Peak Fitness Executive", text: "The architectural depth of the layouts transformed our marketing conversion loops. A true enterprise design powerhouse.", rating: 5 },
                 { name: "Alina Kross", company: "Aurora AI Product Lead", text: "Incredible delivery velocities. Our design asset overhead vanished completely under this structured setup.", rating: 5 }
             ],
-            // ACTIVE POOL DOCUMENT DATA (Editable via Admin Panel Control Form)
             documents: {
-                refund: { tag: "Legal node", title: "Refund Policy matrix", body: "<p>We hold high confidence in our asset delivery speeds. If you wish to terminate processing operations, subscription refund requests can be cleanly raised within <b>7 business operating days</b> of your initial transaction cycle. If design asset queues have already entered standard active queue execution configurations, proportional operational deductions apply smoothly.</p>" },
-                terms: { tag: "Legal node", title: "Terms of Service Agreement", body: "<p>By active subscription initialization configurations under Web Tolet, you grant absolute clear development authorization schemas. All source UI vector components, structural layout cards, and compiled design delivery assets turn entirely into your <b>absolute personal commercial property</b> right upon final verification milestones.</p>" },
-                privacy: { tag: "Data protection", title: "Privacy Framework Matrix", body: "<p>Your project pipeline descriptions, brand guidelines, secure login matrices, and source media buffers remain tightly secured under end-to-end sandbox storage layers. No brand configurations run leaks inside public structural environments under any operational circumstances.</p>" },
-                pricing_agreement: { tag: "Commercials", title: "Pricing Framework Agreement", body: "<p>Subscription rates are strictly locked at initialization configurations and remain highly stable. Any modification adjustments in active design queues or duration toggle levels recalculate limits dynamically on next pipeline clearing dates seamlessly.</p>" },
-                sla: { tag: "Operations", title: "SLA Production Guidelines", body: "<p>Our standard response metrics secure code asset deployment pipelines inside <b>24 to 48 hours</b> under clean processing flows. Priority tracks instantly pull engineers forward for multi-product queue acceleration cycles automatically.</p>" },
-                scaling: { tag: "Enterprise", title: "Enterprise Scaling Nodes", body: "<p>For organizations maintaining extensive brand development loops, our engine supports scaling structures up to <b>10 concurrent active pipelines</b>. Custom setups link directly via specialized root engineering channels seamlessly.</p>" },
-                faq: { tag: "Help Node", title: "Core FAQ Routing", body: "<div class='space-y-3'><div><b>Q: How do design request updates process?</b><p class='text-gray-500 text-xs mt-0.5'>A: Drop your specs via dashboard interface. Our asset queue picks them up instantly and delivers them one by one smoothly.</p></div><div><b>Q: Can I pause my active subscription level?</b><p class='text-gray-500 text-xs mt-0.5'>A: Yes! Pausing queues locks your remaining billing periods until next operational requirements demand activation.</p></div></div>" },
-                contact: { tag: "Support", title: "Contact Engineering Support", body: "<p>Need direct core communication routing? Drop lines across to our framework managers directly at <b>support@webtolet.com</b>. Active technical diagnostics respond within 2-4 standard operational hours seamlessly.</p>" },
-                ticket: { tag: "Ticket Sync", title: "Submit Active Design Ticket", body: "<p>To register structural issues regarding asset layers, secure authorization keys from your primary account routing matrix, and trigger direct high-priority developer support loops safely.</p>" }
+                refund: { tag: "Legal node", title: "Refund Policy matrix", body: "<p>We hold high confidence in our asset delivery speeds. If you wish to terminate processing operations, subscription refund requests can be cleanly raised within <b>7 business operating days</b> of your initial transaction cycle.</p>" },
+                terms: { tag: "Legal node", title: "Terms of Service Agreement", body: "<p>All source UI vector components, structural layout cards, and compiled design delivery assets turn entirely into your <b>absolute personal commercial property</b>.</p>" },
+                privacy: { tag: "Data protection", title: "Privacy Framework Matrix", body: "<p>Your project pipeline descriptions, brand guidelines, secure login matrices, and source media buffers remain tightly secured.</p>" },
+                pricing_agreement: { tag: "Commercials", title: "Pricing Framework Agreement", body: "<p>Subscription rates are strictly locked at initialization configurations and remain highly stable.</p>" },
+                sla: { tag: "Operations", title: "SLA Production Guidelines", body: "<p>Our standard response metrics secure code asset deployment pipelines inside <b>24 to 48 hours</b> under clean processing flows.</p>" },
+                scaling: { tag: "Enterprise", title: "Enterprise Scaling Nodes", body: "<p>For organizations maintaining extensive brand development loops, our engine supports scaling structures flawlessly.</p>" },
+                faq: { tag: "Help Node", title: "Core FAQ Routing", body: "<div class='space-y-3'><div><b>Q: How do design request updates process?</b><p class='text-gray-500 text-xs mt-0.5'>A: Drop your specs via dashboard interface. Our asset queue picks them up instantly.</p></div></div>" },
+                contact: { tag: "Support", title: "Contact Engineering Support", body: "<p>Direct support communication routing manager lines open safely at <b>support@webtolet.com</b></p>" },
+                ticket: { tag: "Ticket Sync", title: "Submit Active Design Ticket", body: "<p>Register structural issues regarding asset layers directly inside secure customer channels.</p>" }
             }
         };
 
         let ACTIVE_GLOBAL_DATA = BACKUP_PREMIUM_DATA;
+        let activeAuthMode = 'login'; // 'login' or 'signup'
 
-        // Modal Presentation Display Controllers
+        // Client Modal Controller
+        window.toggleClientModal = function(isOpen, mode = 'login') {
+            const modal = document.getElementById('client-modal');
+            const content = document.getElementById('client-modal-content');
+            if(isOpen) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                content.classList.remove('scale-95'); content.classList.add('scale-100');
+                switchClientAuthTab(mode);
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.remove('scale-100'); content.classList.add('scale-95');
+                document.getElementById('client-auth-error').classList.add('hidden');
+            }
+        }
+
+        // Switch Tabs inside Client Auth Modal
+        window.switchClientAuthTab = function(mode) {
+            activeAuthMode = mode;
+            const loginTab = document.getElementById('tab-client-login');
+            const signupTab = document.getElementById('tab-client-signup');
+            const nameField = document.getElementById('client-name-field');
+            const tierField = document.getElementById('client-tier-field');
+            const submitBtn = document.getElementById('client-submit-btn');
+
+            document.getElementById('client-auth-error').classList.add('hidden');
+
+            if(mode === 'login') {
+                loginTab.className = "w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition";
+                signupTab.className = "w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition";
+                nameField.classList.add('hidden');
+                tierField.classList.add('hidden');
+                submitBtn.innerText = "Sign In to Client Portal";
+            } else {
+                signupTab.className = "w-1/2 pb-3 border-b-2 border-cyan-400 text-white cursor-pointer premium-transition";
+                loginTab.className = "w-1/2 pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-300 cursor-pointer premium-transition";
+                nameField.classList.remove('hidden');
+                tierField.classList.remove('hidden');
+                submitBtn.innerText = "Initialize Account Tier";
+            }
+        }
+
+        // Handle Form Validation Demo
+        document.getElementById('client-auth-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('client-email').value;
+            const password = document.getElementById('client-password').value;
+            const errorDiv = document.getElementById('client-auth-error');
+            const errorTxt = document.getElementById('client-error-text');
+
+            if(activeAuthMode === 'login') {
+                // Static Check for Demo login purpose
+                if(email === 'client@demo.com' && password === 'client2026') {
+                    errorDiv.classList.add('hidden');
+                    alert("Verification successful! Redirecting to client queue pipeline dashboard...");
+                } else {
+                    errorTxt.innerText = "Invalid client record matrices. Try client@demo.com / client2026";
+                    errorDiv.classList.remove('hidden');
+                }
+            } else {
+                // Signup Actions Matrix simulation
+                const name = document.getElementById('client-name').value;
+                const selectedTier = document.getElementById('client-tier').value;
+                if(!name) {
+                    errorTxt.innerText = "Full identity indexing parameter required.";
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+                alert(`Account successfully initialized for ${name} under ${selectedTier}! Push server infrastructure live to sync accounts registry loops.`);
+                toggleClientModal(false);
+            }
+        });
+
+        // Admin Modal Controller
         window.toggleAdminModal = function(isOpen) {
             const modal = document.getElementById('admin-modal');
             const content = document.getElementById('modal-content');
@@ -307,7 +416,6 @@
             }
         }
 
-        // Active Policy Overlays Presentation Controllers
         window.toggleContentModal = function(isOpen) {
             const modal = document.getElementById('content-modal');
             const box = document.getElementById('content-modal-box');
@@ -320,7 +428,6 @@
             }
         }
 
-        // Dynamic Modal Injector
         window.openDynamicModal = function(docKey) {
             const doc = ACTIVE_GLOBAL_DATA.documents[docKey];
             if(doc) {
@@ -334,16 +441,13 @@
         async function initializeWebsite() {
             try {
                 const response = await fetch('/api/website-data');
-                if(response.ok) {
-                    ACTIVE_GLOBAL_DATA = await response.json();
-                }
+                if(response.ok) ACTIVE_GLOBAL_DATA = await response.json();
             } catch (e) {
-                console.warn("API router offline; reading layout variables directly from local engine cache safely.");
+                console.warn("API router offline; loading fallback variables engine safely.");
             }
 
             const DATA = ACTIVE_GLOBAL_DATA;
 
-            // Injections
             document.getElementById('promo-banner').innerText = DATA.promoBanner;
             document.getElementById('logo-text').innerText = DATA.logo;
             document.getElementById('hero-tagline').innerText = DATA.hero.tagline;
@@ -351,7 +455,7 @@
             document.getElementById('hero-desc').innerText = DATA.hero.desc;
 
             document.getElementById('hero-metrics').innerHTML = DATA.hero.metrics.map(m => `
-                <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center hover:border-cyan-400/20 shadow-md hover:shadow-cyan-400/5 hover:-translate-y-0.5 premium-transition">
+                <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center hover:border-cyan-400/20 shadow-md premium-transition">
                     <i class="fa-solid ${m.icon} text-cyan-400 mb-1 block text-base animate-pulse"></i>
                     <div class="text-lg font-bold text-white tracking-tight">${m.value}</div>
                     <div class="text-[10px] text-gray-400 mt-0.5 uppercase tracking-wide font-light">${m.label}</div>
@@ -359,7 +463,7 @@
             `).join('');
 
             document.getElementById('categories-grid').innerHTML = DATA.categories.map(c => `
-                <div class="group glass-card border border-white/5 hover:border-cyan-400/40 rounded-2xl p-6 text-left shadow-lg hover:shadow-[0_10px_30px_rgba(0,245,212,0.05)] transform hover:-translate-y-1.5 premium-transition">
+                <div class="group glass-card border border-white/5 hover:border-cyan-400/40 rounded-2xl p-6 text-left shadow-lg transform hover:-translate-y-1.5 premium-transition">
                     <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-cyan-400 text-lg mb-5 group-hover:bg-cyan-400 group-hover:text-black premium-transition">
                         <i class="fa-solid ${c.icon || 'fa-cubes'}"></i>
                     </div>
@@ -396,11 +500,11 @@
                                 <span class="text-xs text-gray-500 font-medium">/ monthly</span>
                             </div>
                             <ul class="space-y-3.5 text-sm text-left pt-4 border-t border-white/5">
-                                ${p.features.map(f => `<li class="flex items-start space-x-2.5 text-gray-300"><i class="fa-solid fa-square-check text-emerald-400 mt-0.5 text-xs animate-pulse"></i><span>${f}</span></li>`).join('')}
+                                ${p.features.map(f => `<li class="flex items-start space-x-2.5 text-gray-300"><i class="fa-solid fa-square-check text-emerald-400 mt-0.5 text-xs"></i><span>${f}</span></li>`).join('')}
                                 ${p.antiFeatures && p.antiFeatures.length > 0 ? p.antiFeatures.map(af => `<li class="flex items-start space-x-2.5 text-gray-600 line-through"><i class="fa-solid fa-square-xmark mt-0.5 text-xs"></i><span>${af}</span></li>`).join('') : ''}
                             </ul>
                         </div>
-                        <button class="w-full mt-8 py-3.5 rounded-xl font-bold text-sm transform active:scale-[0.99] premium-transition cursor-pointer ${p.recommended ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-purple-500/10 hover:shadow-purple-500/25' : 'bg-white/5 text-gray-200 hover:bg-white/10 border border-white/5'}">Subscribe Plan</button>
+                        <button onclick="toggleClientModal(true, 'signup')" class="w-full mt-8 py-3.5 rounded-xl font-bold text-sm transform active:scale-[0.99] premium-transition cursor-pointer ${p.recommended ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-purple-500/10' : 'bg-white/5 text-gray-200 hover:bg-white/10 border border-white/5'}">Subscribe Plan</button>
                     </div>
                 `).join('');
             };
@@ -444,13 +548,10 @@
             }
         });
 
-        // Close details content modal when user clicks on background overlay safely
-        document.getElementById('content-modal').addEventListener('click', function(e) {
-            if(e.target === this) toggleContentModal(false);
-        });
-        document.getElementById('admin-modal').addEventListener('click', function(e) {
-            if(e.target === this) toggleAdminModal(false);
-        });
+        // Close details content click handlers
+        document.getElementById('content-modal').addEventListener('click', function(e) { if(e.target === this) toggleContentModal(false); });
+        document.getElementById('admin-modal').addEventListener('click', function(e) { if(e.target === this) toggleAdminModal(false); });
+        document.getElementById('client-modal').addEventListener('click', function(e) { if(e.target === this) toggleClientModal(false); });
 
         initializeWebsite();
     </script>

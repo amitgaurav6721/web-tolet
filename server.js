@@ -22,16 +22,14 @@ const razorpay = new Razorpay({
 });
 
 // FIXED SECURE PORT 465 SSL/TLS LAYER TUNNEL FOR NODEMAILER
+// REPLACE NODEMAILER TRANSPORTER WITH SENDGRID SMTP SETUP
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp.sendgrid.net',
     port: 465,
-    secure: true, 
+    secure: true, // SSL port 465 ke liye true
     auth: {
-        user: process.env.GMAIL_USER, 
-        pass: process.env.GMAIL_PASS  
-    },
-    tls: {
-        rejectUnauthorized: false 
+        user: 'apikey', // Yeh word EXACTLY 'apikey' hi rahega (string literal)
+        pass: process.env.SENDGRID_API_KEY // Aapki Sendgrid API Key
     }
 });
 

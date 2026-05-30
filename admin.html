@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Tolet - Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-950 text-gray-100 p-8">
+
+    <div class="max-w-3xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-xl">
+        <h1 class="text-2xl font-bold text-cyan-400 mb-6 border-b border-gray-800 pb-3">⚙️ Web Tolet Admin Control</h1>
+        
+        <form id="admin-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Logo Text</label>
+                    <input type="text" id="input-logo" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Promo Banner Text</label>
+                    <input type="text" id="input-banner" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                </div>
+            </div>
+
+            <div class="space-y-4 bg-gray-950/50 p-4 rounded-xl border border-gray-800">
+                <h3 class="text-sm font-bold text-purple-400 uppercase">Hero Section Customization</h3>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Hero Tagline</label>
+                    <input type="text" id="input-hero-tagline" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Hero Title</label>
+                    <input type="text" id="input-hero-title" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Hero Description</label>
+                    <textarea id="input-hero-desc" rows="3" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 text-sm"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold p-3 rounded-xl hover:opacity-90 transition-all">
+                Save Changes & Publish Live
+            </button>
+        </form>
+    </div>
+
+    <script>
+        let fullData = {};
+
+        // Page load par current data fetch karke inputs me fill karna
+        async function loadCurrentData() {
+            const res = await fetch('/api/website-data');
+            fullData = await res.json();
+            
+            document.getElementById('input-logo').value = fullData.logo;
+            document.getElementById('input-banner').value = fullData.promoBanner;
+            document.getElementById('input-hero-tagline').value = fullData.hero.tagline;
+            document.getElementById('input-hero-title').value = fullData.hero.title;
+            document.getElementById('input-hero-desc').value = fullData.hero.desc;
+        }
+
+        // Form submit par data server par send karna
+        document.getElementById('admin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            fullData.logo = document.getElementById('input-logo').value;
+            fullData.promoBanner = document.getElementById('input-banner').value;
+            fullData.hero.tagline = document.getElementById('input-hero-tagline').value;
+            fullData.hero.title = document.getElementById('input-hero-title').value;
+            fullData.hero.desc = document.getElementById('input-hero-desc').value;
+
+            const response = await fetch('/api/admin/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(fullData)
+            });
+
+            const result = await response.json();
+            if(result.success) {
+                alert("Boom! Website data successfully updated.");
+            } else {
+                alert("Oops! Something went wrong.");
+            }
+        });
+
+        loadCurrentData();
+    </script>
+</body>
+</html>

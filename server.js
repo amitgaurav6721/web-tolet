@@ -22,11 +22,17 @@ const razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
+// Updated Secure SMTP Transport Layer Matrix
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // true for port 465 (SSL/TLS connection setup)
     auth: {
-        user: process.env.GMAIL_USER, 
-        pass: process.env.GMAIL_PASS  
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false // Hosting environment blocks ko bypass karne ke liye
     }
 });
 
